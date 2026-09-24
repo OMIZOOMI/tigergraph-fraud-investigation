@@ -134,6 +134,7 @@ Feature work is developed in isolation, validated against the benchmark, merged
 into `main`, and then followed by case regeneration when output behavior changes.
 
 ```mermaid
+%%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "padding": 8}, "themeVariables": {"fontSize": "13px"}}}%%
 flowchart TB
     subgraph P1["Phase 1: Feature Branching"]
         direction LR
@@ -170,9 +171,9 @@ flowchart TB
     schemaCheck -->|pass| review
     schemaCheck -->|fix| implement
 
-    classDef action fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#172033,font-size:16px
-    classDef data fill:#FFF7ED,stroke:#C2410C,stroke-width:2px,color:#172033,font-size:16px
-    classDef decision fill:#ECFDF5,stroke:#0F766E,stroke-width:2px,color:#172033,font-size:16px
+    classDef action fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#172033,font-size:14px
+    classDef data fill:#FFF7ED,stroke:#C2410C,stroke-width:2px,color:#172033,font-size:14px
+    classDef decision fill:#ECFDF5,stroke:#0F766E,stroke-width:2px,color:#172033,font-size:14px
     class branch,implement,syntax,isolated,clear,batch,review,merge action
     class outputs data
     class schemaCheck decision
