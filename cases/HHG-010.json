@@ -1,9 +1,9 @@
 {
     "case_id": "HHG-010",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.85,
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.35,
         "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C10434-K1 shows the flagged online transaction 3506725 on 2016-12-02 for $1,000.03 with a risk score of 0.90. The card has a mix of in-person and online transactions with normal amounts mostly ranging from $20 to $150, alongside occasional higher in-person amounts ($670). No clear card-testing sequence of small amounts under $5 is present.",
+                "claim": "Card transaction history for C10434-K1 shows the flagged transaction 3506725 on 2016-12-02 for $1,000.03 via the online channel (product_cd 'R', addr1 '469') with an initial risk score of 0.90. This online transaction is significantly larger than typical online transactions for this card, which generally range between $19.98 and $100.07, though in-person transactions reach up to $670.04. Subsequent online and in-person transactions continue normally.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C10434-K1 shows the flagged online transaction 3506725 on 2016-12-02 for $1,000.03 with a risk score of 0.90. The card has a mix of in-person and online transactions with normal amounts mostly ranging from $20 to $150, alongside occasional higher in-person amounts ($670). No clear card-testing sequence of small amounts under $5 is present.",
+        "summary": "Card transaction history for C10434-K1 shows the flagged transaction 3506725 on 2016-12-02 for $1,000.03 via the online channel (product_cd 'R', addr1 '469') with an initial risk score of 0.90. This online transaction is significantly larger than typical online transactions for this card, which generally range between $19.98 and $100.07, though in-person transactions reach up to $670.04. Subsequent online and in-person transactions continue normally.",
         "written_to_graph": true,
         "graph_case_id": "HHG-010"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 13.935
+    "latency_s": 14.263
 }

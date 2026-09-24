@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-016",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.65,
-        "pattern": "card-not-present fraud",
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.25,
+        "pattern": "card_not_present",
         "pattern_description": "",
         "affected_txn_ids": [
             "3534820"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C09988 reported an unauthorized online purchase of $59.67 on 2016-12-11 (txn 3534820) with a risk score of 0.37. The card history for C09988-K1 shows continuous online transactions spanning from September to December 2016, with multiple online purchases occurring around the disputed date without clear evidence of a card-testing burst or out-of-region card-present activity.",
+                "claim": "Customer C09988 reported an unrecognized online purchase of $59.67 (txn 3534820) on 2016-12-11 22:39:08. The card history for C09988-K1 shows frequent online transactions ranging from under $10 to over $100 across September to December 2016, with no distinct card testing pattern or unusual spikes immediately surrounding the flagged transaction.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C09988 reported an unauthorized online purchase of $59.67 on 2016-12-11 (txn 3534820) with a risk score of 0.37. The card history for C09988-K1 shows continuous online transactions spanning from September to December 2016, with multiple online purchases occurring around the disputed date without clear evidence of a card-testing burst or out-of-region card-present activity.",
+        "summary": "Customer C09988 reported an unrecognized online purchase of $59.67 (txn 3534820) on 2016-12-11 22:39:08. The card history for C09988-K1 shows frequent online transactions ranging from under $10 to over $100 across September to December 2016, with no distinct card testing pattern or unusual spikes immediately surrounding the flagged transaction.",
         "written_to_graph": true,
         "graph_case_id": "HHG-016"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 29.539
+    "latency_s": 35.806
 }

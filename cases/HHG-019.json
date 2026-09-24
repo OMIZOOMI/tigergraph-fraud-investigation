@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C07987-K2 has a sparse history showing only one prior in-person transaction (txn 3314748 for $311.86 on 2016-09-30). The flagged transaction (txn 3503878) is an online purchase for $99.92 on 2016-12-01, yielding a high risk score of 0.90. Device and historical case queries were unsuccessful due to endpoint availability/parameter errors.",
+                "claim": "Card C07987-K2 has sparse historical activity, featuring one previous in-person transaction (txn 3314748) for $311.86 on 2016-09-30. The flagged transaction (txn 3503878) is an online purchase for $99.92 on 2016-12-01 with a high risk score of 0.90, representing an anomalous shift to card-not-present activity.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card C07987-K2 has a sparse history showing only one prior in-person transaction (txn 3314748 for $311.86 on 2016-09-30). The flagged transaction (txn 3503878) is an online purchase for $99.92 on 2016-12-01, yielding a high risk score of 0.90. Device and historical case queries were unsuccessful due to endpoint availability/parameter errors.",
+        "summary": "Card C07987-K2 has sparse historical activity, featuring one previous in-person transaction (txn 3314748) for $311.86 on 2016-09-30. The flagged transaction (txn 3503878) is an online purchase for $99.92 on 2016-12-01 with a high risk score of 0.90, representing an anomalous shift to card-not-present activity.",
         "written_to_graph": true,
         "graph_case_id": "HHG-019"
     },
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 19.783
+    "latency_s": 12.211
 }

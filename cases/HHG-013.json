@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C07671-K2 shows a history of exclusively in-person transactions prior to the flagged online transaction 3526826 ($35.66, online, risk score 0.76). This sudden introduction of an online channel represents a deviation from established cardholder behavior, matching the characteristics of card-not-present fraud.",
+                "claim": "Card C07671-K2 shows a history entirely consisting of in-person retail transactions (product_cd W, addr1 264) over several months up to December 2016. The flagged transaction 3526826 is an online purchase for $35.66, representing a sudden channel shift to Card-Not-Present (CNP) activity. Device query failed and similar cases query was disabled, but the sudden pivot from exclusively in-person to an online transaction matches card-not-present fraud characteristics.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card C07671-K2 shows a history of exclusively in-person transactions prior to the flagged online transaction 3526826 ($35.66, online, risk score 0.76). This sudden introduction of an online channel represents a deviation from established cardholder behavior, matching the characteristics of card-not-present fraud.",
+        "summary": "Card C07671-K2 shows a history entirely consisting of in-person retail transactions (product_cd W, addr1 264) over several months up to December 2016. The flagged transaction 3526826 is an online purchase for $35.66, representing a sudden channel shift to Card-Not-Present (CNP) activity. Device query failed and similar cases query was disabled, but the sudden pivot from exclusively in-person to an online transaction matches card-not-present fraud characteristics.",
         "written_to_graph": true,
         "graph_case_id": "HHG-013"
     },
@@ -56,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 11.717
+    "latency_s": 16.895
 }

@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-020",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.65,
-        "pattern": "account takeover",
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.2,
+        "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [
             "3509359"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C12265-K2 shows only in-person transactions (on 2016-10-02, 2016-12-10, and 2016-12-11) located in addr1 '264'. The trigger context references an online transaction ($125.08) at 0.52 risk score, representing a sudden channel shift from established in-person usage.",
+                "claim": "Card C12265-K2 shows only in-person transactions historically (addr1: 264), with normal activity continuing around the time of the flagged online transaction (txn 3509359, $125.08, risk score 0.52). Although the flagged transaction is online (CNP), subsequent card-present transactions continue locally in region 264, which is inconsistent with typical compromised CNP fraud patterns where remote online usage replaces in-person behavior.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C12265-K2 shows only in-person transactions (on 2016-10-02, 2016-12-10, and 2016-12-11) located in addr1 '264'. The trigger context references an online transaction ($125.08) at 0.52 risk score, representing a sudden channel shift from established in-person usage.",
+        "summary": "Card C12265-K2 shows only in-person transactions historically (addr1: 264), with normal activity continuing around the time of the flagged online transaction (txn 3509359, $125.08, risk score 0.52). Although the flagged transaction is online (CNP), subsequent card-present transactions continue locally in region 264, which is inconsistent with typical compromised CNP fraud patterns where remote online usage replaces in-person behavior.",
         "written_to_graph": true,
         "graph_case_id": "HHG-020"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -56,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 617.449
+    "latency_s": 10.077
 }

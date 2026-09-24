@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "card testing",
+        "fraud_probability": 0.8,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3583227"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08106 reported txn 3583227 ($128.33, 2016-12-29 01:53:54) as unauthorized. Card history shows multiple small online transactions (e.g., $16.05, $15.99, $6.48, $8.36, $10.42, $5.73, $5.78) consistent with card testing behavior prior to larger charges, though historical precedent query and device queries were unavailable or returned errors.",
+                "claim": "Customer C08106 reported disputed transaction 3583227 ($128.33, online channel) occurring on 2016-12-29 01:53:54. Review of card C08106-K1 transaction history shows consistent online purchases spanning multiple weeks with no card-present activity or multi-item card testing sequences. While transaction 3583227 is a card-not-present transaction disputed by the customer, there is insufficient evidence of broader automated card-testing or distinct device-sharing anomalies in the retrieved transaction log.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08106 reported txn 3583227 ($128.33, 2016-12-29 01:53:54) as unauthorized. Card history shows multiple small online transactions (e.g., $16.05, $15.99, $6.48, $8.36, $10.42, $5.73, $5.78) consistent with card testing behavior prior to larger charges, though historical precedent query and device queries were unavailable or returned errors.",
+        "summary": "Customer C08106 reported disputed transaction 3583227 ($128.33, online channel) occurring on 2016-12-29 01:53:54. Review of card C08106-K1 transaction history shows consistent online purchases spanning multiple weeks with no card-present activity or multi-item card testing sequences. While transaction 3583227 is a card-not-present transaction disputed by the customer, there is insufficient evidence of broader automated card-testing or distinct device-sharing anomalies in the retrieved transaction log.",
         "written_to_graph": true,
         "graph_case_id": "HHG-004"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 15.503
+    "latency_s": 14.387
 }

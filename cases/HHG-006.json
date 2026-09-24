@@ -1,9 +1,9 @@
 {
     "case_id": "HHG-006",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.2,
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.5,
         "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1 history shows extensive in-person activity (channel: in_person, product_cd: W) across various addresses from August to September 2016, with no online/CNP transactions or matching device neighbors in the retrieved graph data.",
+                "claim": "Customer C07297 reported an unauthorized $482.12 purchase under transaction ID 3476682. The card history for C07297-K1 shows consistent in-person (card-present) transactions up to September 16, 2016, with varying locations and amounts.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1 history shows extensive in-person activity (channel: in_person, product_cd: W) across various addresses from August to September 2016, with no online/CNP transactions or matching device neighbors in the retrieved graph data.",
+        "summary": "Customer C07297 reported an unauthorized $482.12 purchase under transaction ID 3476682. The card history for C07297-K1 shows consistent in-person (card-present) transactions up to September 16, 2016, with varying locations and amounts.",
         "written_to_graph": true,
         "graph_case_id": "HHG-006"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
-                "route": "auto",
+                "action": "BLOCK_CARD",
+                "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
-                "route": "auto",
+                "action": "BLOCK_CARD",
+                "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 11.887
+    "latency_s": 13.993
 }

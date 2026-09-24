@@ -1,21 +1,19 @@
 {
     "case_id": "HHG-005",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.35,
-        "pattern": "card-not-present fraud",
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.15,
+        "pattern": "none",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3523199"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3523199",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C02923-K1 shows the flagged online transaction 3523199 ($100.07, product_cd 'R', risk_score 0.54) occurred on 2016-12-07 amidst a high-frequency pattern of regular in-person purchases (product_cd 'W', amounts around $117) and occasional online purchases. The transaction does not match card testing (no sequence of small amounts under $5) nor clear account takeover indicators in the immediate history.",
+                "claim": "Card transaction history for C02923-K1 shows regular in-person purchases (Product W) around $116-$141 interspersed with occasional online transactions (Product H, S, R). The flagged online transaction 3523199 on 2016-12-07 for $100.07 (Product R) received a risk score of 0.54, but historical data shows regular online activity and no evidence of a card testing sequence (three or more small authorizations under $5).",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +23,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C02923-K1 shows the flagged online transaction 3523199 ($100.07, product_cd 'R', risk_score 0.54) occurred on 2016-12-07 amidst a high-frequency pattern of regular in-person purchases (product_cd 'W', amounts around $117) and occasional online purchases. The transaction does not match card testing (no sequence of small amounts under $5) nor clear account takeover indicators in the immediate history.",
+        "summary": "Card transaction history for C02923-K1 shows regular in-person purchases (Product W) around $116-$141 interspersed with occasional online transactions (Product H, S, R). The flagged online transaction 3523199 on 2016-12-07 for $100.07 (Product R) received a risk score of 0.54, but historical data shows regular online activity and no evidence of a card testing sequence (three or more small authorizations under $5).",
         "written_to_graph": true,
         "graph_case_id": "HHG-005"
     },
@@ -58,5 +56,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 24.288
+    "latency_s": 14.198
 }

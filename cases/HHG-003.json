@@ -4,7 +4,7 @@
         "status": "closed_legitimate",
         "verdict": "legitimate",
         "fraud_probability": 0.15,
-        "pattern": "none",
+        "pattern": "out-of-region use",
         "pattern_description": "",
         "affected_txn_ids": [],
         "first_suspicious_txn_id": "3530164",
@@ -13,7 +13,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08623 reported a fraudulent $49.00 purchase (txn 3530164, though card history shows txn 3534946 for $116.97 on 2016-12-11 and several in-person transactions in October 2016 in different billing regions/addr1 codes such as 269, 225, 123, 448, and 204). All historical transactions are 'in_person' channel with product code W. There is no clear pattern of card testing, CNP activity, or new device indicators in the provided history.",
+                "claim": "Customer C08623 reported a fraudulent $49.00 purchase (transaction 3530164, referenced as $49.00 in message, close to historical amounts like 48.95 and 48.01). Card C08623-K2 history shows consistent in-person transactions across various billing regions (addr1: 269, 225, 123, 448, 204), with normal activity continuing alongside the reported timeframe.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -23,7 +23,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08623 reported a fraudulent $49.00 purchase (txn 3530164, though card history shows txn 3534946 for $116.97 on 2016-12-11 and several in-person transactions in October 2016 in different billing regions/addr1 codes such as 269, 225, 123, 448, and 204). All historical transactions are 'in_person' channel with product code W. There is no clear pattern of card testing, CNP activity, or new device indicators in the provided history.",
+        "summary": "Customer C08623 reported a fraudulent $49.00 purchase (transaction 3530164, referenced as $49.00 in message, close to historical amounts like 48.95 and 48.01). Card C08623-K2 history shows consistent in-person transactions across various billing regions (addr1: 269, 225, 123, 448, 204), with normal activity continuing alongside the reported timeframe.",
         "written_to_graph": true,
         "graph_case_id": "HHG-003"
     },
@@ -31,14 +31,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -56,5 +56,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 10.369
+    "latency_s": 9.999
 }

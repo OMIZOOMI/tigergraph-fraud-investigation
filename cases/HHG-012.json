@@ -1,9 +1,9 @@
 {
     "case_id": "HHG-012",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.45,
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.65,
         "pattern": "out-of-region use",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C05876-K2 has a historical transaction pattern consisting entirely of in_person purchases (addr1: 123, 330, 264) with low risk scores (0.02 - 0.05). The flagged transaction 3553342 is for $30.91 in billing region 494.0. No matching closed cases or device neighbor info could be retrieved due to query endpoints being disabled or parameter format mismatches.",
+                "claim": "Card C05876-K2 has a history of legitimate in-person transactions (e.g., in regions 123, 330, 264) spanning from September to December 2016. The flagged transaction 3553342 ($30.91) occurred in billing region 494.0, which diverges from the cardholder's usual home regions while historical in-person activity continues.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card C05876-K2 has a historical transaction pattern consisting entirely of in_person purchases (addr1: 123, 330, 264) with low risk scores (0.02 - 0.05). The flagged transaction 3553342 is for $30.91 in billing region 494.0. No matching closed cases or device neighbor info could be retrieved due to query endpoints being disabled or parameter format mismatches.",
+        "summary": "Card C05876-K2 has a history of legitimate in-person transactions (e.g., in regions 123, 330, 264) spanning from September to December 2016. The flagged transaction 3553342 ($30.91) occurred in billing region 494.0, which diverges from the cardholder's usual home regions while historical in-person activity continues.",
         "written_to_graph": true,
         "graph_case_id": "HHG-012"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "MONITOR_CARD",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "MONITOR_CARD",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -56,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 24.613
+    "latency_s": 15.035
 }

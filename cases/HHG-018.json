@@ -3,7 +3,7 @@
     "case": {
         "status": "closed_legitimate",
         "verdict": "legitimate",
-        "fraud_probability": 0.1,
+        "fraud_probability": 0.15,
         "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [],
@@ -13,7 +13,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C02354 reported a disputed transaction of $39.08 (txn 3491361). Card history for C02354-K2 shows multiple in_person transactions spanning September and December 2016, with no online transactions or card testing patterns found in the available history.",
+                "claim": "Customer C02354 reported a disputed $39.08 transaction (referred to as txn 3491361, though no transaction with ID 3491361 appears in the card history). Card C02354-K2 transaction history shows a series of in-person purchases across September and December 2016, with no online or card-not-present activity recorded. Historical precedent search and device neighbor lookups were unsuccessful due to endpoint/vertex errors.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -23,7 +23,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C02354 reported a disputed transaction of $39.08 (txn 3491361). Card history for C02354-K2 shows multiple in_person transactions spanning September and December 2016, with no online transactions or card testing patterns found in the available history.",
+        "summary": "Customer C02354 reported a disputed $39.08 transaction (referred to as txn 3491361, though no transaction with ID 3491361 appears in the card history). Card C02354-K2 transaction history shows a series of in-person purchases across September and December 2016, with no online or card-not-present activity recorded. Historical precedent search and device neighbor lookups were unsuccessful due to endpoint/vertex errors.",
         "written_to_graph": true,
         "graph_case_id": "HHG-018"
     },
@@ -31,14 +31,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "WARN_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "WARN_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -54,7 +54,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 9.496
+    "latency_s": 24.753
 }
