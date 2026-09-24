@@ -64,12 +64,19 @@ When fraud_probability is at least 0.85 and the evidence supports a
 card-level compromise or anomalous card-not-present channel shift, prefer
 BLOCK_CARD over DECLINE_TRANSACTION. Use L1 when exposure is below $2,500.
 
+Evidence evolution is mandatory when `evidence_requests` contains data. Preserve
+the original recommendation in the `initial` array, choose a new escalated
+recommendation in the `final` array (prefer `BLOCK_CARD` with route `L1` for
+the supplied unauthorized-purchase response), and explain the change in
+`what_changed`. When `evidence_requests` is empty, use the same recommendation
+in both arrays and set `what_changed` to `nothing`.
+
 CRITICAL RULE: If your verdict is 'legitimate', the `affected_txn_ids` list MUST be completely empty `[]`. Do not include the flagged transaction ID.
 
 Respond with JSON only in this shape:
 {
-  "next_best_action": "EXACT_ACTION_ENUM",
-  "approval_route": "auto|L1|L2",
-  "reason": "brief evidence-based rationale"
+  "initial": [{"action": "EXACT_ACTION_ENUM", "route": "auto|L1|L2", "reason": "brief rationale"}],
+  "final": [{"action": "EXACT_ACTION_ENUM", "route": "auto|L1|L2", "reason": "brief rationale"}],
+  "what_changed": "nothing or a brief explanation of the evidence-driven shift"
 }
 """

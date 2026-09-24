@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C04570-K1 shows multiple bursts of online transactions around $100 and $250. Specifically, on 2016-11-11, there were transactions at 22:36:50 ($100.09), 22:58:57 ($99.96), and the flagged transaction 3450629 at 23:46:24 ($100.09, risk score 0.57). This sequence of three small online authorizations under or around $100 closely mirrors a card-testing pattern.",
+                "claim": "Card C04570-K1 transaction history shows multiple online transactions with amounts around $100.09 and $99.96 (e.g., txn_vertex 3450436, 3450503, and 3450629) occurring in a tight cluster on 2016-11-11, fitting a card-testing pattern. The flagged transaction 3450629 is for $100.09 at risk score 0.57.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C04570-K1 shows multiple bursts of online transactions around $100 and $250. Specifically, on 2016-11-11, there were transactions at 22:36:50 ($100.09), 22:58:57 ($99.96), and the flagged transaction 3450629 at 23:46:24 ($100.09, risk score 0.57). This sequence of three small online authorizations under or around $100 closely mirrors a card-testing pattern.",
+        "summary": "Card C04570-K1 transaction history shows multiple online transactions with amounts around $100.09 and $99.96 (e.g., txn_vertex 3450436, 3450503, and 3450629) occurring in a tight cluster on 2016-11-11, fitting a card-testing pattern. The flagged transaction 3450629 is for $100.09 at risk score 0.57.",
         "written_to_graph": true,
         "graph_case_id": "HHG-017"
     },
@@ -35,14 +35,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Card testing pattern detected with multiple transactions in a tight cluster; probability 0.85 and exposure below $2,500 warrants card block on L1 route."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Card testing pattern detected with multiple transactions in a tight cluster; probability 0.85 and exposure below $2,500 warrants card block on L1 route."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 13.891
+    "latency_s": 12.43
 }

@@ -1,9 +1,9 @@
 {
     "case_id": "HHG-006",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.5,
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.35,
         "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C07297 reported an unauthorized $482.12 purchase under transaction ID 3476682. The card history for C07297-K1 shows consistent in-person (card-present) transactions up to September 16, 2016, with varying locations and amounts.",
+                "claim": "Customer C07297 reported an unrecognized $482.12 purchase for transaction 3476682 on card C07297-K1. The card's transaction history shows extensive in-person (card-present) activity with multiple locations/addresses (e.g., addr1: 485, 205, 191, 264, etc.) up to September 2016, but no direct card-not-present indicators or device data were retrievable via the graph tools due to query execution issues.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,27 +25,33 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C07297 reported an unauthorized $482.12 purchase under transaction ID 3476682. The card history for C07297-K1 shows consistent in-person (card-present) transactions up to September 16, 2016, with varying locations and amounts.",
+        "summary": "Customer C07297 reported an unrecognized $482.12 purchase for transaction 3476682 on card C07297-K1. The card's transaction history shows extensive in-person (card-present) activity with multiple locations/addresses (e.g., addr1: 485, 205, 191, 264, etc.) up to September 2016, but no direct card-not-present indicators or device data were retrievable via the graph tools due to query execution issues.",
         "written_to_graph": true,
         "graph_case_id": "HHG-006"
     },
-    "evidence_requests": [],
+    "evidence_requests": [
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": "Customer states they did not make these purchases and still has the card."
+        }
+    ],
     "next_best_actions": {
         "initial": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
+                "reason": "Customer reported an unrecognized transaction, but historical context and low fraud probability suggest verification is needed before blocking."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Customer confirmed they did not make the purchase and still possesses the physical card, confirming unauthorized card-not-present usage and compromise."
             }
         ],
-        "what_changed": "nothing"
+        "what_changed": "Customer validation confirmed the unauthorized purchase and card possession, escalating the recommendation from customer verification to blocking the card."
     },
     "sar": {
         "file": false,
@@ -58,5 +64,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 13.993
+    "latency_s": 18.67
 }

@@ -3,7 +3,7 @@
     "case": {
         "status": "escalated",
         "verdict": "uncertain",
-        "fraud_probability": 0.45,
+        "fraud_probability": 0.35,
         "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C03042-K1 shows the flagged transaction 3464869 ($599.94, online, risk score 0.77) occurred on 2016-11-17. The card exhibits mixed-channel activity (both online and in_person purchases) with recurring online transactions and varying risk scores, but no clear card-testing sequence of small amounts under $5. Device neighbors query failed and similar cases query was disabled, limiting device and historical precedent correlation.",
+                "claim": "Card transaction history for C03042-K1 shows mixed online and in-person activity over several months. The flagged transaction 3464869 occurred on 2016-11-17 via the online channel for $599.94 with a risk score of 0.77. The card exhibits normal usage with alternating in-person and online purchases, and there is no evidence of a card-testing sequence (three or more small authorizations under $5).",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C03042-K1 shows the flagged transaction 3464869 ($599.94, online, risk score 0.77) occurred on 2016-11-17. The card exhibits mixed-channel activity (both online and in_person purchases) with recurring online transactions and varying risk scores, but no clear card-testing sequence of small amounts under $5. Device neighbors query failed and similar cases query was disabled, limiting device and historical precedent correlation.",
+        "summary": "Card transaction history for C03042-K1 shows mixed online and in-person activity over several months. The flagged transaction 3464869 occurred on 2016-11-17 via the online channel for $599.94 with a risk score of 0.77. The card exhibits normal usage with alternating in-person and online purchases, and there is no evidence of a card-testing sequence (three or more small authorizations under $5).",
         "written_to_graph": true,
         "graph_case_id": "HHG-015"
     },
@@ -35,14 +35,14 @@
             {
                 "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Fraud probability is low (0.35) and transaction history shows normal mixed online and in-person activity without card-testing."
             }
         ],
         "final": [
             {
                 "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Fraud probability is low (0.35) and transaction history shows normal mixed online and in-person activity without card-testing."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 64.596
+    "latency_s": 14.756
 }

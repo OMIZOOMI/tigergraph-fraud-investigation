@@ -1,19 +1,21 @@
 {
     "case_id": "HHG-018",
     "case": {
-        "status": "closed_legitimate",
-        "verdict": "legitimate",
-        "fraud_probability": 0.15,
-        "pattern": "undocumented/none",
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.35,
+        "pattern": "out-of-region use",
         "pattern_description": "",
-        "affected_txn_ids": [],
+        "affected_txn_ids": [
+            "3491361"
+        ],
         "first_suspicious_txn_id": "3491361",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C02354 reported a disputed $39.08 transaction (referred to as txn 3491361, though no transaction with ID 3491361 appears in the card history). Card C02354-K2 transaction history shows a series of in-person purchases across September and December 2016, with no online or card-not-present activity recorded. Historical precedent search and device neighbor lookups were unsuccessful due to endpoint/vertex errors.",
+                "claim": "Card transaction history for C02354-K2 shows multiple in_person transactions across different locations/addresses (addr1: 325, 126, 308, 264) in rapid succession on 2016-12-07 and 2016-12-08, with amounts ranging from $28.98 to $445.07. The customer reported transaction 3491361 (note: the transaction ID in the report differs numerically from the retrieved vertices, but the customer dispute involves a $39.08 charge context).",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -23,27 +25,33 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C02354 reported a disputed $39.08 transaction (referred to as txn 3491361, though no transaction with ID 3491361 appears in the card history). Card C02354-K2 transaction history shows a series of in-person purchases across September and December 2016, with no online or card-not-present activity recorded. Historical precedent search and device neighbor lookups were unsuccessful due to endpoint/vertex errors.",
+        "summary": "Card transaction history for C02354-K2 shows multiple in_person transactions across different locations/addresses (addr1: 325, 126, 308, 264) in rapid succession on 2016-12-07 and 2016-12-08, with amounts ranging from $28.98 to $445.07. The customer reported transaction 3491361 (note: the transaction ID in the report differs numerically from the retrieved vertices, but the customer dispute involves a $39.08 charge context).",
         "written_to_graph": true,
         "graph_case_id": "HHG-018"
     },
-    "evidence_requests": [],
+    "evidence_requests": [
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": "Customer states they did not make these purchases and still has the card."
+        }
+    ],
     "next_best_actions": {
         "initial": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Customer reported an unauthorized $39.08 purchase, but fraud probability is moderate (0.35) with mixed multi-location activity, warranting direct customer verification."
             }
         ],
         "final": [
             {
-                "action": "ALLOW_TRANSACTION",
-                "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer validation confirmed they did not make the purchases and still possess the card, indicating card compromise and unauthorized use below $2,500 exposure."
             }
         ],
-        "what_changed": "nothing"
+        "what_changed": "Customer confirmed via validation that they did not make the purchases and still possess the card, escalating the finding from unverified dispute to confirmed card compromise."
     },
     "sar": {
         "file": false,
@@ -56,5 +64,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 24.753
+    "latency_s": 15.302
 }

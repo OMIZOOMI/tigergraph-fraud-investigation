@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_legitimate",
         "verdict": "legitimate",
-        "fraud_probability": 0.15,
-        "pattern": "out-of-region use",
+        "fraud_probability": 0.1,
+        "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [],
         "first_suspicious_txn_id": "3530164",
@@ -13,7 +13,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08623 reported a fraudulent $49.00 purchase (transaction 3530164, referenced as $49.00 in message, close to historical amounts like 48.95 and 48.01). Card C08623-K2 history shows consistent in-person transactions across various billing regions (addr1: 269, 225, 123, 448, 204), with normal activity continuing alongside the reported timeframe.",
+                "claim": "Card C08623-K2 transaction history shows all previous transactions (between Oct and Dec 2016) were conducted in-person with product code W. The customer reported a disputed $49.00 purchase (txn_id 3530164, though a nearby in-person transaction 3534946 for $116.97 occurred on 2016-12-11 in addr1 '204'). Historical pattern matching query was unavailable due to an endpoint error.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -23,27 +23,33 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08623 reported a fraudulent $49.00 purchase (transaction 3530164, referenced as $49.00 in message, close to historical amounts like 48.95 and 48.01). Card C08623-K2 history shows consistent in-person transactions across various billing regions (addr1: 269, 225, 123, 448, 204), with normal activity continuing alongside the reported timeframe.",
+        "summary": "Card C08623-K2 transaction history shows all previous transactions (between Oct and Dec 2016) were conducted in-person with product code W. The customer reported a disputed $49.00 purchase (txn_id 3530164, though a nearby in-person transaction 3534946 for $116.97 occurred on 2016-12-11 in addr1 '204'). Historical pattern matching query was unavailable due to an endpoint error.",
         "written_to_graph": true,
         "graph_case_id": "HHG-003"
     },
-    "evidence_requests": [],
+    "evidence_requests": [
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": "Customer states they did not make these purchases and still has the card."
+        }
+    ],
     "next_best_actions": {
         "initial": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Low fraud probability (0.1) with a customer dispute; verify the $49.00 transaction directly with the customer."
             }
         ],
         "final": [
             {
-                "action": "ALLOW_TRANSACTION",
-                "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer validation response confirmed they did not make the purchases and still possess the card, indicating card compromise necessitating a card block."
             }
         ],
-        "what_changed": "nothing"
+        "what_changed": "Customer validation response confirmed unauthorized usage while retaining physical possession of the card, escalating the action from customer verification to blocking the compromised card."
     },
     "sar": {
         "file": false,
@@ -56,5 +62,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 9.999
+    "latency_s": 12.844
 }

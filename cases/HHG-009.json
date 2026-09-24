@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.95,
-        "pattern": "card testing",
+        "fraud_probability": 0.75,
+        "pattern": "card_not_present",
         "pattern_description": "",
         "affected_txn_ids": [
             "3581141"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online) as unauthorized. Card history for C08299-K1 shows multiple bursts of online transactions including small authorizations and rapid-fire amounts (e.g., Dec 30, 2016 with three $20 transactions and Dec 31, 2016 with multiple ~$50 transactions), consistent with card testing followed by larger fraudulent use.",
+                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online channel, timestamp 2016-12-28 12:10:53) as unauthorized. Card history for C08299-K1 shows consistent online card-not-present activity over several months. Similar case retrieval and device queries were unavailable due to endpoint errors.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online) as unauthorized. Card history for C08299-K1 shows multiple bursts of online transactions including small authorizations and rapid-fire amounts (e.g., Dec 30, 2016 with three $20 transactions and Dec 31, 2016 with multiple ~$50 transactions), consistent with card testing followed by larger fraudulent use.",
+        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online channel, timestamp 2016-12-28 12:10:53) as unauthorized. Card history for C08299-K1 shows consistent online card-not-present activity over several months. Similar case retrieval and device queries were unavailable due to endpoint errors.",
         "written_to_graph": true,
         "graph_case_id": "HHG-009"
     },
@@ -35,14 +35,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Customer reported an unauthorized online transaction on card C08299-K1 with exposure under $2,500; blocking the compromised card is warranted."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Customer reported an unauthorized online transaction on card C08299-K1 with exposure under $2,500; blocking the compromised card is warranted."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 11.452
+    "latency_s": 14.454
 }

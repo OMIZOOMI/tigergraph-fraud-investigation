@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-002",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.35,
-        "pattern": "undocumented/none",
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.75,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3478782"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C11891-K1 shows multiple online purchases over several months with varying risk scores. Specifically, transaction 3478782 on 2016-11-22 for $292.36 had an initial risk score of 0.79. Other transactions display standard online activity without a definitive card testing or high-velocity burst pattern directly tied to this specific flagged event.",
+                "claim": "Card transaction history for C11891-K1 shows multiple online purchases over several months. Transaction 3478782 on 2016-11-22 for $292.36 (risk score 0.79) represents a significantly higher amount than the card's typical online spending pattern, which consists predominantly of smaller amounts ($20-$55). There is no distinct card testing sequence immediately prior to this transaction, but the transaction stands out as an unusual, high-value online burst/outlier purchase.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,27 +25,33 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C11891-K1 shows multiple online purchases over several months with varying risk scores. Specifically, transaction 3478782 on 2016-11-22 for $292.36 had an initial risk score of 0.79. Other transactions display standard online activity without a definitive card testing or high-velocity burst pattern directly tied to this specific flagged event.",
+        "summary": "Card transaction history for C11891-K1 shows multiple online purchases over several months. Transaction 3478782 on 2016-11-22 for $292.36 (risk score 0.79) represents a significantly higher amount than the card's typical online spending pattern, which consists predominantly of smaller amounts ($20-$55). There is no distinct card testing sequence immediately prior to this transaction, but the transaction stands out as an unusual, high-value online burst/outlier purchase.",
         "written_to_graph": true,
         "graph_case_id": "HHG-002"
     },
-    "evidence_requests": [],
+    "evidence_requests": [
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": "Customer states they did not make these purchases and still has the card."
+        }
+    ],
     "next_best_actions": {
         "initial": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "STEP_UP_AUTH",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Moderate-high risk score (0.79) for an unusually large online transaction compared to historical spending patterns, warranting step-up authentication."
             }
         ],
         "final": [
             {
-                "action": "ALLOW_TRANSACTION",
-                "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer confirmed they did not make the purchase and are still in possession of the card, confirming unauthorized card-not-present fraud under $2,500 exposure."
             }
         ],
-        "what_changed": "nothing"
+        "what_changed": "Customer validation returned a direct confirmation of unauthorized use while retaining physical possession of the card, escalating the assessment from step-up authentication to card blocking."
     },
     "sar": {
         "file": false,
@@ -58,5 +64,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.537
+    "latency_s": 16.114
 }

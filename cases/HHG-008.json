@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C13171 reported an unrecognized online purchase (txn 3558054) for $55.68 on 2016-12-20. Card C13171-K2 history shows one prior online transaction (txn 3308150) for $72.44 on 2016-09-28. No card testing sequence or device neighbor data was found associated with additional fraudulent indicators, but the transaction fits a card-not-present profile.",
+                "claim": "Customer C13171 reported an unauthorized $55.68 online purchase (transaction 3558054). Card C13171-K2 history shows only one prior historical online transaction of $72.44 on 2016-09-28. Historical precedent search was unavailable due to an endpoint error.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C13171 reported an unrecognized online purchase (txn 3558054) for $55.68 on 2016-12-20. Card C13171-K2 history shows one prior online transaction (txn 3308150) for $72.44 on 2016-09-28. No card testing sequence or device neighbor data was found associated with additional fraudulent indicators, but the transaction fits a card-not-present profile.",
+        "summary": "Customer C13171 reported an unauthorized $55.68 online purchase (transaction 3558054). Card C13171-K2 history shows only one prior historical online transaction of $72.44 on 2016-09-28. Historical precedent search was unavailable due to an endpoint error.",
         "written_to_graph": true,
         "graph_case_id": "HHG-008"
     },
@@ -35,14 +35,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Customer reported unauthorized online purchase of $55.68 on card C13171-K2 with anomalous CNP channel usage, and fraud probability is 0.85."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Based on the investigator assessment."
+                "reason": "Customer reported unauthorized online purchase of $55.68 on card C13171-K2 with anomalous CNP channel usage, and fraud probability is 0.85."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 10.366
+    "latency_s": 9.671
 }

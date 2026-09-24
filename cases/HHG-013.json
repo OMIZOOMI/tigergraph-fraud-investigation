@@ -3,7 +3,7 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.76,
+        "fraud_probability": 0.78,
         "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C07671-K2 shows a history entirely consisting of in-person retail transactions (product_cd W, addr1 264) over several months up to December 2016. The flagged transaction 3526826 is an online purchase for $35.66, representing a sudden channel shift to Card-Not-Present (CNP) activity. Device query failed and similar cases query was disabled, but the sudden pivot from exclusively in-person to an online transaction matches card-not-present fraud characteristics.",
+                "claim": "Card C07671-K2 shows past transaction history exclusively via in_person channels (all product_cd W, addr1 264), with amounts ranging from ~$43 to ~$204. The triggered transaction 3526826 is for $35.66 via an online channel, representing a shift to card-not-present activity with a high risk score of 0.76.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,27 +25,33 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card C07671-K2 shows a history entirely consisting of in-person retail transactions (product_cd W, addr1 264) over several months up to December 2016. The flagged transaction 3526826 is an online purchase for $35.66, representing a sudden channel shift to Card-Not-Present (CNP) activity. Device query failed and similar cases query was disabled, but the sudden pivot from exclusively in-person to an online transaction matches card-not-present fraud characteristics.",
+        "summary": "Card C07671-K2 shows past transaction history exclusively via in_person channels (all product_cd W, addr1 264), with amounts ranging from ~$43 to ~$204. The triggered transaction 3526826 is for $35.66 via an online channel, representing a shift to card-not-present activity with a high risk score of 0.76.",
         "written_to_graph": true,
         "graph_case_id": "HHG-013"
     },
-    "evidence_requests": [],
+    "evidence_requests": [
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": "Customer states they did not make these purchases and still has the card."
+        }
+    ],
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "STEP_UP_AUTH",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Moderate-high risk score (0.76) with an abrupt channel shift to online for a card previously used exclusively in-person; step-up authentication is the least disruptive defensive action."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
-                "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer confirmed they did not make the purchase and still have the card, validating card compromise and unauthorized card-not-present activity."
             }
         ],
-        "what_changed": "nothing"
+        "what_changed": "Customer validation response confirmed unauthorized usage while retaining physical possession of the card, escalating the risk from suspicious channel shift to confirmed compromise requiring card block."
     },
     "sar": {
         "file": false,
@@ -58,5 +64,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 16.895
+    "latency_s": 28.436
 }

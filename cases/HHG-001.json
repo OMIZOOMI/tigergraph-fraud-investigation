@@ -3,7 +3,7 @@
     "case": {
         "status": "closed_legitimate",
         "verdict": "legitimate",
-        "fraud_probability": 0.05,
+        "fraud_probability": 0.15,
         "pattern": "none",
         "pattern_description": "",
         "affected_txn_ids": [],
@@ -13,7 +13,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C12382-K1 shows extensive, continuous in-person ('in_person' channel) transactions across multiple billing regions (addr1) throughout December 2016. The flagged transaction (3514030) aligns with routine in-person spending patterns observed for this card. Historical precedent tool and device neighbor tool failed due to query endpoints being disabled or invalid vertex ids, leaving card transaction history as the primary graph evidence.",
+                "claim": "Card transaction history for C12382-K1 shows frequent, consistent in_person transactions across multiple billing regions (addr1) such as 444, 433, 428, 472, 204, etc., with normal variation in amounts and low risk scores. The flagged transaction 3514030 ($77.07, billing region 444.0, risk score 0.61) matches historical billing regions (e.g., addr1 444 appears multiple times, such as txn 3589921 and 3572011). There is no historical precedent available from similar cases due to query endpoint restrictions.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -23,7 +23,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C12382-K1 shows extensive, continuous in-person ('in_person' channel) transactions across multiple billing regions (addr1) throughout December 2016. The flagged transaction (3514030) aligns with routine in-person spending patterns observed for this card. Historical precedent tool and device neighbor tool failed due to query endpoints being disabled or invalid vertex ids, leaving card transaction history as the primary graph evidence.",
+        "summary": "Card transaction history for C12382-K1 shows frequent, consistent in_person transactions across multiple billing regions (addr1) such as 444, 433, 428, 472, 204, etc., with normal variation in amounts and low risk scores. The flagged transaction 3514030 ($77.07, billing region 444.0, risk score 0.61) matches historical billing regions (e.g., addr1 444 appears multiple times, such as txn 3589921 and 3572011). There is no historical precedent available from similar cases due to query endpoint restrictions.",
         "written_to_graph": true,
         "graph_case_id": "HHG-001"
     },
@@ -33,14 +33,14 @@
             {
                 "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Low fraud probability (0.15) with historical precedent showing consistent in-person transactions in the same billing region."
             }
         ],
         "final": [
             {
                 "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "reason": "Low fraud probability (0.15) with historical precedent showing consistent in-person transactions in the same billing region."
             }
         ],
         "what_changed": "nothing"
@@ -56,5 +56,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 26.106
+    "latency_s": 16.438
 }

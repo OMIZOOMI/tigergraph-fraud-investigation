@@ -115,6 +115,7 @@ for index, (_, row) in enumerate(df.iterrows()):
                 "card_id": card_id,
                 "trigger_context": trigger_context,
                 "evidence": "",
+                "evidence_requests": [],
                 "pattern": "",
                 "next_best_action": "",
                 "fraud_probability": 0.0,

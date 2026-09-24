@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.8,
-        "pattern": "card-not-present fraud",
+        "fraud_probability": 0.85,
+        "pattern": "card_not_present",
         "pattern_description": "",
         "affected_txn_ids": [
             "3583227"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08106 reported disputed transaction 3583227 ($128.33, online channel) occurring on 2016-12-29 01:53:54. Review of card C08106-K1 transaction history shows consistent online purchases spanning multiple weeks with no card-present activity or multi-item card testing sequences. While transaction 3583227 is a card-not-present transaction disputed by the customer, there is insufficient evidence of broader automated card-testing or distinct device-sharing anomalies in the retrieved transaction log.",
+                "claim": "Customer C08106 reported disputed transaction 3583227 for $128.33, occurring on 2016-12-29 01:53:54 via the online channel. Transaction history for card C08106-K1 reveals frequent, recurring card-not-present online purchases with varying risk scores and amounts across December 2016.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08106 reported disputed transaction 3583227 ($128.33, online channel) occurring on 2016-12-29 01:53:54. Review of card C08106-K1 transaction history shows consistent online purchases spanning multiple weeks with no card-present activity or multi-item card testing sequences. While transaction 3583227 is a card-not-present transaction disputed by the customer, there is insufficient evidence of broader automated card-testing or distinct device-sharing anomalies in the retrieved transaction log.",
+        "summary": "Customer C08106 reported disputed transaction 3583227 for $128.33, occurring on 2016-12-29 01:53:54 via the online channel. Transaction history for card C08106-K1 reveals frequent, recurring card-not-present online purchases with varying risk scores and amounts across December 2016.",
         "written_to_graph": true,
         "graph_case_id": "HHG-004"
     },
@@ -33,16 +33,16 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
-                "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer reported unauthorized transaction of $128.33 (below $2,500 threshold) with fraud probability 0.85, supporting card-level compromise."
             }
         ],
         "final": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
-                "route": "auto",
-                "reason": "Based on the investigator assessment."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer reported unauthorized transaction of $128.33 (below $2,500 threshold) with fraud probability 0.85, supporting card-level compromise."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.387
+    "latency_s": 15.813
 }

@@ -158,8 +158,48 @@ def investigate_node(state: InvestigationState) -> dict:
     }
 
 
+def simulate_evidence_node(state: InvestigationState) -> dict:
+    """Add a mock customer response before the second decision pass."""
+    evidence_requests = list(state.get("evidence_requests", []))
+    evidence_requests.append(
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": (
+                "Customer states they did not make these purchases and still has the card."
+            ),
+        }
+    )
+    return {"evidence_requests": evidence_requests}
+
+
+def _extract_action(result: dict, key: str) -> dict | None:
+    """Read an action object from the decider's array or legacy scalar fields."""
+    candidates = result.get(key)
+    if isinstance(candidates, list) and candidates and isinstance(candidates[0], dict):
+        candidate = candidates[0]
+        return {
+            "action": str(candidate.get("action", "")),
+            "route": str(candidate.get("route", "L1")),
+            "reason": str(candidate.get("reason", "Based on the investigator assessment.")),
+        }
+    if key == "final" or key == "initial":
+        action = result.get("next_best_action")
+        if action:
+            return {
+                "action": str(action),
+                "route": str(result.get("approval_route", "L1")),
+                "reason": str(result.get("reason", "Based on the investigator assessment.")),
+            }
+    return None
+
+
 def decide_action_node(state: InvestigationState) -> dict:
     """Choose the appropriate response based on the investigation assessment."""
+    evidence_requests = state.get("evidence_requests", [])
+    previous_actions = state.get("next_best_actions", {})
+    if not isinstance(previous_actions, dict):
+        previous_actions = {}
     response = llm.invoke(
         [
             SystemMessage(content=DECIDER_PROMPT),
@@ -169,27 +209,70 @@ def decide_action_node(state: InvestigationState) -> dict:
                     f"trigger_context={json.dumps(state.get('trigger_context', {}), default=str)}\n"
                     f"evidence={json.dumps(state['evidence'], default=str)}\n"
                     f"fraud_probability={state['fraud_probability']}\n"
-                    f"pattern={state['pattern']}"
+                    f"pattern={state['pattern']}\n"
+                    f"evidence_requests={json.dumps(evidence_requests, default=str)}\n"
+                    f"prior_actions={json.dumps(previous_actions, default=str)}"
                 )
             ),
         ]
     )
     result = _parse_json_object(_message_text(response))
-    action = str(result.get("next_best_action", "Escalate for analyst review."))
-    route = str(result.get("approval_route", "L1"))
-    action_object = {
-        "action": action,
-        "route": route,
-        "reason": "Based on the investigator assessment.",
+    fallback_action = {
+        "action": str(result.get("next_best_action", "Escalate for analyst review.")),
+        "route": str(result.get("approval_route", "L1")),
+        "reason": str(result.get("reason", "Based on the investigator assessment.")),
     }
+    parsed_initial = _extract_action(result, "initial")
+    parsed_final = _extract_action(result, "final")
+
+    if not evidence_requests:
+        initial_actions = [parsed_initial or parsed_final or fallback_action]
+        final_actions = [parsed_final or parsed_initial or fallback_action]
+        what_changed = "nothing"
+    else:
+        initial_actions = previous_actions.get("initial", [])
+        if not isinstance(initial_actions, list) or not initial_actions:
+            initial_actions = [parsed_initial or fallback_action]
+
+        final_action = parsed_final or fallback_action
+        escalated_actions = {"BLOCK_CARD", "BLOCK_ALL_CARDS", "DECLINE_TRANSACTION"}
+        if final_action["action"] not in escalated_actions:
+            final_action = {
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer validation indicates the purchases were unauthorized.",
+            }
+        final_actions = [final_action]
+        what_changed = str(result.get("what_changed", "")).strip()
+        if not what_changed or what_changed.lower() == "nothing":
+            what_changed = (
+                f"Customer validation changed the recommendation from "
+                f"{initial_actions[0].get('action', 'the initial action')} to "
+                f"{final_action['action']}."
+            )
+
+    final_action = final_actions[0]
     return {
-        "next_best_action": action,
+        "next_best_action": final_action["action"],
         "next_best_actions": {
-            "initial": [action_object],
-            "final": [action_object],
-            "what_changed": "nothing",
+            "initial": initial_actions,
+            "final": final_actions,
+            "what_changed": what_changed,
         },
     }
+
+
+def route_after_decision(state: InvestigationState) -> str:
+    """Request one evidence response only for verification-style initial actions."""
+    actions = state.get("next_best_actions", {})
+    initial_actions = actions.get("initial", []) if isinstance(actions, dict) else []
+    initial_action = initial_actions[0].get("action") if initial_actions else ""
+    if (
+        initial_action in {"VERIFY_WITH_CUSTOMER", "STEP_UP_AUTH"}
+        and not state.get("evidence_requests", [])
+    ):
+        return "simulate_evidence_node"
+    return "save_and_close_node"
 
 
 def save_and_close_node(state: InvestigationState) -> dict:
@@ -223,10 +306,19 @@ def save_and_close_node(state: InvestigationState) -> dict:
 workflow = StateGraph(InvestigationState)
 workflow.add_node("investigate_node", investigate_node)
 workflow.add_node("decide_action_node", decide_action_node)
+workflow.add_node("simulate_evidence_node", simulate_evidence_node)
 workflow.add_node("save_and_close_node", save_and_close_node)
 workflow.add_edge(START, "investigate_node")
 workflow.add_edge("investigate_node", "decide_action_node")
-workflow.add_edge("decide_action_node", "save_and_close_node")
+workflow.add_conditional_edges(
+    "decide_action_node",
+    route_after_decision,
+    {
+        "simulate_evidence_node": "simulate_evidence_node",
+        "save_and_close_node": "save_and_close_node",
+    },
+)
+workflow.add_edge("simulate_evidence_node", "decide_action_node")
 workflow.add_edge("save_and_close_node", END)
 
 agent_app = workflow.compile()
