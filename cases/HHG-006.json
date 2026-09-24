@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-006",
+    "case": {
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.3,
+        "pattern": "undocumented/none",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3476682"
+        ],
+        "first_suspicious_txn_id": "3476682",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1's transaction history shows a high volume of in_person transactions across multiple locations and zip codes up to September 2016, but no explicit online/CNP activity or transaction vertex 3476682 found directly in the history retrieval. Precedent lookup failed due to a disabled query endpoint.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C07297-K1",
+                    "3476682"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1's transaction history shows a high volume of in_person transactions across multiple locations and zip codes up to September 2016, but no explicit online/CNP activity or transaction vertex 3476682 found directly in the history retrieval. Precedent lookup failed due to a disabled query endpoint.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-006"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Contact the customer to verify the unrecognized $482.12 transaction and assess whether card replacement is necessary.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Contact the customer to verify the unrecognized $482.12 transaction and assess whether card replacement is necessary.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 2,
+    "tokens": 0,
+    "latency_s": 9.87
+}

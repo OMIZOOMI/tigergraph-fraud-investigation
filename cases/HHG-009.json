@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-009",
+    "case": {
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.85,
+        "pattern": "card-not-present fraud",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3581141"
+        ],
+        "first_suspicious_txn_id": "3581141",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online channel, timestamp 2016-12-28 12:10:53) as unauthorized. Card history shows extensive online activity with frequent bursts of small-to-moderate transactions (e.g., Dec 30-31 with multiple online transactions around $20 and ~$50). No historical precedent or device neighbors could be retrieved due to query failures.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C08299-K1",
+                    "3581141"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online channel, timestamp 2016-12-28 12:10:53) as unauthorized. Card history shows extensive online activity with frequent bursts of small-to-moderate transactions (e.g., Dec 30-31 with multiple online transactions around $20 and ~$50). No historical precedent or device neighbors could be retrieved due to query failures.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-009"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Block card and issue replacement due to confirmed unauthorized customer-reported CNP fraud.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Block card and issue replacement due to confirmed unauthorized customer-reported CNP fraud.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 14.44
+}

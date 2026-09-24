@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-010",
+    "case": {
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.85,
+        "pattern": "card-not-present fraud",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3506725"
+        ],
+        "first_suspicious_txn_id": "3506725",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Transaction 3506725 occurred on 2016-12-02 for $1,000.03 via the online channel (product code R) with a high risk score of 0.90. The cardholder's history (card_id C10434-K1) shows a mix of frequent in-person purchases around $50-$150 and occasional online transactions, but no prior amounts as high as $1,000.03 except for occasional in-person transactions around $670. Device neighbors query failed, and similar case search is unavailable.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C10434-K1",
+                    "3506725"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Transaction 3506725 occurred on 2016-12-02 for $1,000.03 via the online channel (product code R) with a high risk score of 0.90. The cardholder's history (card_id C10434-K1) shows a mix of frequent in-person purchases around $50-$150 and occasional online transactions, but no prior amounts as high as $1,000.03 except for occasional in-person transactions around $670. Device neighbors query failed, and similar case search is unavailable.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-010"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Contact the customer to verify the high-value online transaction.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Contact the customer to verify the high-value online transaction.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 24.053
+}

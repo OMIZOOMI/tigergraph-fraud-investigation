@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-014",
+    "case": {
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.45,
+        "pattern": "card-not-present fraud from a new device",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3478561"
+        ],
+        "first_suspicious_txn_id": "3478561",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Transaction 3478561 on card C13487-K1 is an online purchase of $74.96 made on 2016-11-22 at 16:11:00 with a risk score of 0.05. Card history shows a mix of in-person purchases and occasional online transactions (e.g., txn 3460634, 3489320). The trigger context mentions analyst suspicion regarding cards showing purchases from an unusual device profile across the month.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C13487-K1",
+                    "3478561"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Transaction 3478561 on card C13487-K1 is an online purchase of $74.96 made on 2016-11-22 at 16:11:00 with a risk score of 0.05. Card history shows a mix of in-person purchases and occasional online transactions (e.g., txn 3460634, 3489320). The trigger context mentions analyst suspicion regarding cards showing purchases from an unusual device profile across the month.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-014"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Contact the customer to verify the recent online purchases made from the unusual device profile.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Contact the customer to verify the recent online purchases made from the unusual device profile.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 17.953
+}

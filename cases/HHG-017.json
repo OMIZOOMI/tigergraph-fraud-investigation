@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-017",
+    "case": {
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.45,
+        "pattern": "card-not-present fraud",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3450629"
+        ],
+        "first_suspicious_txn_id": "3450629",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Card C04570-K1 shows multiple online transactions around $100 on 2016-11-11 (txn 3450436 at $100.09, txn 3450503 at $99.96, and flagged txn 3450629 at $100.09). Similar repetitive online bursts occur on other dates (e.g., 2016-11-28, 2016-08-08, and 2016-07-29). The pattern features repeated small-to-moderate online authorizations, but the exact card-testing sequence of three micro-authorizations under $5 followed by a larger purchase is not definitively established.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C04570-K1",
+                    "3450629"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Card C04570-K1 shows multiple online transactions around $100 on 2016-11-11 (txn 3450436 at $100.09, txn 3450503 at $99.96, and flagged txn 3450629 at $100.09). Similar repetitive online bursts occur on other dates (e.g., 2016-11-28, 2016-08-08, and 2016-07-29). The pattern features repeated small-to-moderate online authorizations, but the exact card-testing sequence of three micro-authorizations under $5 followed by a larger purchase is not definitively established.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-017"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Contact the customer to verify the validity of the repetitive online transactions, as the fraud probability is moderate (0.45) and definitive card-testing or fraud patterns are not yet established.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Contact the customer to verify the validity of the repetitive online transactions, as the fraud probability is moderate (0.45) and definitive card-testing or fraud patterns are not yet established.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 12.636
+}

@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-013",
+    "case": {
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.78,
+        "pattern": "account takeover",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3526826"
+        ],
+        "first_suspicious_txn_id": "3526826",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Transaction 3526826 ($35.66, online channel) is flagged with an initial risk score of 0.76. Review of the card history for C07671-K2 shows all prior transactions (ranging from $43.90 to $204.93) occurred via the 'in_person' channel at location addr1: '264', with no prior online transactions recorded. The historical closed-case query endpoint was unavailable, but the sudden shift from exclusively in-person card-present usage to an online transaction represents mixed-channel activity inconsistent with historical cardholder behavior.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C07671-K2",
+                    "3526826"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Transaction 3526826 ($35.66, online channel) is flagged with an initial risk score of 0.76. Review of the card history for C07671-K2 shows all prior transactions (ranging from $43.90 to $204.93) occurred via the 'in_person' channel at location addr1: '264', with no prior online transactions recorded. The historical closed-case query endpoint was unavailable, but the sudden shift from exclusively in-person card-present usage to an online transaction represents mixed-channel activity inconsistent with historical cardholder behavior.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-013"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Contact the customer to verify the unexpected online transaction given the history of exclusively in-person card usage.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Contact the customer to verify the unexpected online transaction given the history of exclusively in-person card usage.",
+                "route": "L1",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 2,
+    "tokens": 0,
+    "latency_s": 9.84
+}

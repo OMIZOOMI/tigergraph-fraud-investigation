@@ -1,0 +1,14 @@
+pyTigerGraph
+langgraph
+langchain
+langchain-anthropic
+langchain-groq
+langchain-openai
+langchain-google-genai
+langchain-mcp-adapters
+mcp
+tigergraph-mcp
+langchain-community
+pydantic>=2.0
+python-dotenv
+pandas

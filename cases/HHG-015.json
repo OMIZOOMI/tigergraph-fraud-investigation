@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-015",
+    "case": {
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.35,
+        "pattern": "undocumented/none",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3464869"
+        ],
+        "first_suspicious_txn_id": "3464869",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Card transaction history for C03042-K1 shows the flagged transaction 3464869 ($599.94, online, risk score 0.77) occurred on 2016-11-17. The card exhibits mixed online and in-person transactions spanning multiple months with varying risk scores, but no clear card testing or multi-channel takeover pattern. Historical precedent search and device neighbor queries were unavailable due to query errors.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C03042-K1",
+                    "3464869"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Card transaction history for C03042-K1 shows the flagged transaction 3464869 ($599.94, online, risk score 0.77) occurred on 2016-11-17. The card exhibits mixed online and in-person transactions spanning multiple months with varying risk scores, but no clear card testing or multi-channel takeover pattern. Historical precedent search and device neighbor queries were unavailable due to query errors.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-015"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "step-up authentication due to moderate risk score of 0.77 on an online transaction without confirmed fraud pattern",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "step-up authentication due to moderate risk score of 0.77 on an online transaction without confirmed fraud pattern",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 14.043
+}

@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-001",
+    "case": {
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.05,
+        "pattern": "out-of-region use",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3514030"
+        ],
+        "first_suspicious_txn_id": "3514030",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Card transaction history for C12382-K1 shows consistent in-person activity across multiple billing regions (e.g., 444, 433, 204, 203) with typical transaction amounts ranging from roughly $15 to $425. The flagged transaction 3514030 for $77.07 occurred in billing region 444.0, which matches historical home regions for this card (e.g., region 444 seen on 2016-12-11, 2016-12-17, 2016-12-24, and 2016-12-31). Historical precedent and device neighbor tools were unavailable or yielded no active patterns, so the assessment relies on the card history.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C12382-K1",
+                    "3514030"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Card transaction history for C12382-K1 shows consistent in-person activity across multiple billing regions (e.g., 444, 433, 204, 203) with typical transaction amounts ranging from roughly $15 to $425. The flagged transaction 3514030 for $77.07 occurred in billing region 444.0, which matches historical home regions for this card (e.g., region 444 seen on 2016-12-11, 2016-12-17, 2016-12-24, and 2016-12-31). Historical precedent and device neighbor tools were unavailable or yielded no active patterns, so the assessment relies on the card history.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-001"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Clear the alert as the transaction occurred in a historically verified home billing region with an amount well within typical spending patterns, resulting in a very low fraud probability of 0.05.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Clear the alert as the transaction occurred in a historically verified home billing region with an amount well within typical spending patterns, resulting in a very low fraud probability of 0.05.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 14.297
+}

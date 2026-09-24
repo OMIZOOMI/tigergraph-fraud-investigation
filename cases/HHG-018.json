@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-018",
+    "case": {
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.1,
+        "pattern": "undocumented/none",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3491361"
+        ],
+        "first_suspicious_txn_id": "3491361",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Customer C02354 reported an unauthorized purchase of $39.08 (txn 3491361). Card history for C02354-K2 shows multiple in_person transactions spanning September and December 2016, with amounts ranging from $28.98 to $445.07, and no direct evidence of card testing, CNP activity, or out-of-region anomalies.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C02354-K2",
+                    "3491361"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Customer C02354 reported an unauthorized purchase of $39.08 (txn 3491361). Card history for C02354-K2 shows multiple in_person transactions spanning September and December 2016, with amounts ranging from $28.98 to $445.07, and no direct evidence of card testing, CNP activity, or out-of-region anomalies.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-018"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Contact the customer to verify the details of the reported unauthorized $39.08 transaction and initiate standard dispute processing if confirmed fraudulent.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Contact the customer to verify the details of the reported unauthorized $39.08 transaction and initiate standard dispute processing if confirmed fraudulent.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 2,
+    "tokens": 0,
+    "latency_s": 10.546
+}

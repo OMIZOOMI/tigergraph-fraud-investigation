@@ -1,0 +1,62 @@
+{
+    "case_id": "HHG-007",
+    "case": {
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.05,
+        "pattern": "undocumented/none",
+        "pattern_description": "",
+        "affected_txn_ids": [
+            "3514948"
+        ],
+        "first_suspicious_txn_id": "3514948",
+        "connected_card_ids": [],
+        "connected_device_profiles": [],
+        "exposure_usd": 0.0,
+        "evidence": [
+            {
+                "claim": "Card transaction history for C09933-K2 shows four in-person transactions all located in billing region 264 (product code W): txn 3314528 ($59.07 on 2016-09-30), txn 3526283 ($221.91 on 2016-12-08), txn 3526586 ($48.01 on 2016-12-09), and txn 3526854 ($134.93 on 2016-12-09). The flagged transaction 3514948 ($111.92 in billing region 264.0) aligns with normal in-person channel activity in the cardholder's established billing region with low historical risk scores.",
+                "source": "graph",
+                "ref": "TigerGraph MCP evidence tools",
+                "entity_ids": [
+                    "C09933-K2",
+                    "3514948"
+                ]
+            }
+        ],
+        "similar_prior_cases": [],
+        "summary": "Card transaction history for C09933-K2 shows four in-person transactions all located in billing region 264 (product code W): txn 3314528 ($59.07 on 2016-09-30), txn 3526283 ($221.91 on 2016-12-08), txn 3526586 ($48.01 on 2016-12-09), and txn 3526854 ($134.93 on 2016-12-09). The flagged transaction 3514948 ($111.92 in billing region 264.0) aligns with normal in-person channel activity in the cardholder's established billing region with low historical risk scores.",
+        "written_to_graph": true,
+        "graph_case_id": "HHG-007"
+    },
+    "evidence_requests": [],
+    "next_best_actions": {
+        "initial": [
+            {
+                "action": "Clear the alert as the flagged transaction is consistent with established in-person spending habits in the customer's home region and carries a very low fraud probability.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "final": [
+            {
+                "action": "Clear the alert as the flagged transaction is consistent with established in-person spending habits in the customer's home region and carries a very low fraud probability.",
+                "route": "auto",
+                "reason": "Based on the investigator assessment."
+            }
+        ],
+        "what_changed": "nothing"
+    },
+    "sar": {
+        "file": false,
+        "reason": "No structured SAR decision was requested.",
+        "narrative": "",
+        "subjects": [],
+        "total_amount_usd": 0.0,
+        "activity_dates": []
+    },
+    "stop_reason": "Investigation saved to TigerGraph.",
+    "tool_calls": 3,
+    "tokens": 0,
+    "latency_s": 23.121
+}
