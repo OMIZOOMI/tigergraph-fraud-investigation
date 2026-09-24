@@ -133,7 +133,7 @@ def investigate_node(state: InvestigationState) -> dict:
         "fraud_probability": probability,
         "pattern": pattern,
         "pattern_description": evidence_text if pattern == "undocumented" else "",
-        "affected_txn_ids": [flagged_txn_id] if flagged_txn_id else [],
+        "affected_txn_ids": [flagged_txn_id] if flagged_txn_id and verdict != "legitimate" else [],
         "first_suspicious_txn_id": flagged_txn_id,
         "connected_card_ids": [],
         "connected_device_profiles": [],

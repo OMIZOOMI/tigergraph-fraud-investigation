@@ -6,9 +6,7 @@
         "fraud_probability": 0.1,
         "pattern": "undocumented/none",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3491361"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3491361",
         "connected_card_ids": [],
         "connected_device_profiles": [],

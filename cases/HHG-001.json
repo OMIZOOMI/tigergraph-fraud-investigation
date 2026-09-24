@@ -6,9 +6,7 @@
         "fraud_probability": 0.1,
         "pattern": "out-of-region use",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3514030"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3514030",
         "connected_card_ids": [],
         "connected_device_profiles": [],

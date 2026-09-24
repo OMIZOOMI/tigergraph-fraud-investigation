@@ -64,6 +64,8 @@ When fraud_probability is at least 0.85 and the evidence supports a
 card-level compromise or anomalous card-not-present channel shift, prefer
 BLOCK_CARD over DECLINE_TRANSACTION. Use L1 when exposure is below $2,500.
 
+CRITICAL RULE: If your verdict is 'legitimate', the `affected_txn_ids` list MUST be completely empty `[]`. Do not include the flagged transaction ID.
+
 Respond with JSON only in this shape:
 {
   "next_best_action": "EXACT_ACTION_ENUM",
