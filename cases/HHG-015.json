@@ -4,7 +4,7 @@
         "status": "closed_fraud",
         "verdict": "fraud",
         "fraud_probability": 0.85,
-        "pattern": "card-not-present fraud from a new device",
+        "pattern": "Card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3464869"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3464869",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 599.94,
         "evidence": [
             {
-                "claim": "Card C03042-K1 was evaluated for transaction 3464869 ($599.94, online channel, risk score 0.77) on 2016-11-17. Local similar case history reveals prior confirmed fraud cases on this same card/customer (CC-0615 and CC-3886) involving unauthorized online transactions from unrecognized new devices, as well as one cleared alert (CC-1313).",
+                "claim": "The flagged online transaction (ID 3464869) for $599.94 occurred on 2016-11-17 with a risk score of 0.77. Card history shows mixed online and in-person transactions, but local history includes confirmed fraud cases (CC-0615, CC-3886) for card C03042-K1 involving card-not-present fraud from new devices.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -29,33 +29,27 @@
             "CC-1313",
             "CC-3886"
         ],
-        "summary": "Card C03042-K1 was evaluated for transaction 3464869 ($599.94, online channel, risk score 0.77) on 2016-11-17. Local similar case history reveals prior confirmed fraud cases on this same card/customer (CC-0615 and CC-3886) involving unauthorized online transactions from unrecognized new devices, as well as one cleared alert (CC-1313).",
+        "summary": "The flagged online transaction (ID 3464869) for $599.94 occurred on 2016-11-17 with a risk score of 0.77. Card history shows mixed online and in-person transactions, but local history includes confirmed fraud cases (CC-0615, CC-3886) for card C03042-K1 involving card-not-present fraud from new devices.",
         "written_to_graph": true,
         "graph_case_id": "HHG-015"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "STEP_UP_AUTH",
-                "route": "auto",
-                "reason": "Fraud probability is 0.85 with historical online fraud on the same card, but exposure is below $2,500 and the least disruptive step-up auth is appropriate initially."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Fraud probability is 0.85 with historical CNP fraud on the connected card and exposure under $2500."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer confirmed they did not make the purchase and still possess the card, verifying unauthorized card-not-present fraud. With fraud probability at 0.85 and exposure below $2,500, BLOCK_CARD on route L1 is required."
+                "reason": "Fraud probability is 0.85 with historical CNP fraud on the connected card and exposure under $2500."
             }
         ],
-        "what_changed": "Customer validation confirmed unauthorized purchases, escalating the response from step-up authentication to blocking the compromised card."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -68,5 +62,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.27
+    "latency_s": 64.145
 }

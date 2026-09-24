@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "card-not-present",
+        "fraud_probability": 0.89,
+        "pattern": "Card-not-present fraud from a new device",
         "pattern_description": "",
         "affected_txn_ids": [
             "3478782"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3478782",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 292.36,
         "evidence": [
             {
-                "claim": "Card C11891-K1 was used for transaction 3478782 on 2016-11-22 for $292.36 online, which triggered an initial risk score of 0.79. Historical card activity shows multiple online purchases and card-testing-like velocity on other dates (e.g., Oct 26, 2016), and local case history (CC-4160) indicates confirmed prior fraudulent CNP activity on this card and customer account.",
+                "claim": "Card C11891-K1 shows multiple online purchases including a flagged transaction of $292.36 on 2016-11-22 with a risk score of 0.79. Local similar case CC-4160 confirms prior fraudulent activity on this same card/customer involving unrecognized online transactions totaling $90.54 from a new/unrecognized device context.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -27,7 +27,7 @@
         "similar_prior_cases": [
             "CC-4160"
         ],
-        "summary": "Card C11891-K1 was used for transaction 3478782 on 2016-11-22 for $292.36 online, which triggered an initial risk score of 0.79. Historical card activity shows multiple online purchases and card-testing-like velocity on other dates (e.g., Oct 26, 2016), and local case history (CC-4160) indicates confirmed prior fraudulent CNP activity on this card and customer account.",
+        "summary": "Card C11891-K1 shows multiple online purchases including a flagged transaction of $292.36 on 2016-11-22 with a risk score of 0.79. Local similar case CC-4160 confirms prior fraudulent activity on this same card/customer involving unrecognized online transactions totaling $90.54 from a new/unrecognized device context.",
         "written_to_graph": true,
         "graph_case_id": "HHG-002"
     },
@@ -37,14 +37,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Fraud probability is 0.85 with prior confirmed CNP fraud and card-testing velocity; exposure is $292.36 (below $2,500), warranting a card block at L1."
+                "reason": "High fraud probability (0.89) with established card-not-present fraud pattern and prior fraudulent activity on the card."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Fraud probability is 0.85 with prior confirmed CNP fraud and card-testing velocity; exposure is $292.36 (below $2,500), warranting a card block at L1."
+                "reason": "High fraud probability (0.89) with established card-not-present fraud pattern and prior fraudulent activity on the card."
             }
         ],
         "what_changed": "nothing"
@@ -60,5 +60,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 99.32
+    "latency_s": 113.383
 }

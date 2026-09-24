@@ -1,19 +1,21 @@
 {
     "case_id": "HHG-017",
     "case": {
-        "status": "closed_legitimate",
-        "verdict": "legitimate",
-        "fraud_probability": 0.15,
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.5,
         "pattern": "card-not-present fraud",
         "pattern_description": "",
-        "affected_txn_ids": [],
+        "affected_txn_ids": [
+            "3450629"
+        ],
         "first_suspicious_txn_id": "3450629",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 100.09,
         "evidence": [
             {
-                "claim": "Card C04570-K1 exhibits transactions around November 11, 2016 (including txns 3450436 at $100.09, 3450503 at $99.96, and 3450629 at $100.09) with online channel indicators. Precedent CC-1383 shares similar high-risk online scoring and amounts where cardholder travel/legitimate activity cleared the alert.",
+                "claim": "Transaction 3450629 ($100.09, online, risk score 0.57) occurred on 2016-11-11 at 23:46:24, preceded closely by two similar online transactions of $99.96 and $100.09 in the same hour, fitting a rapid sequence pattern of card-not-present activity. However, local historical precedent CC-1383 for this card/customer shows prior high risk-score alerts ($99.98 at 0.91) were cleared due to confirmed legitimate travel and cardholder activity in the billing region. The evidence presents conflicting signals regarding online transaction velocity versus established legitimate history.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +27,7 @@
         "similar_prior_cases": [
             "CC-1383"
         ],
-        "summary": "Card C04570-K1 exhibits transactions around November 11, 2016 (including txns 3450436 at $100.09, 3450503 at $99.96, and 3450629 at $100.09) with online channel indicators. Precedent CC-1383 shares similar high-risk online scoring and amounts where cardholder travel/legitimate activity cleared the alert.",
+        "summary": "Transaction 3450629 ($100.09, online, risk score 0.57) occurred on 2016-11-11 at 23:46:24, preceded closely by two similar online transactions of $99.96 and $100.09 in the same hour, fitting a rapid sequence pattern of card-not-present activity. However, local historical precedent CC-1383 for this card/customer shows prior high risk-score alerts ($99.98 at 0.91) were cleared due to confirmed legitimate travel and cardholder activity in the billing region. The evidence presents conflicting signals regarding online transaction velocity versus established legitimate history.",
         "written_to_graph": true,
         "graph_case_id": "HHG-017"
     },
@@ -33,16 +35,16 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "ESCALATE_TO_ANALYST",
                 "route": "auto",
-                "reason": "Fraud probability is low at 0.15, matching precedent where similar amounts cleared after travel/legitimate activity checks."
+                "reason": "Verdict is uncertain with fraud probability at 0.50, and exposure is below the $500 threshold for mandatory escalation under R8, but conflicting evidence requires analyst review."
             }
         ],
         "final": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "ESCALATE_TO_ANALYST",
                 "route": "auto",
-                "reason": "Fraud probability is low at 0.15, matching precedent where similar amounts cleared after travel/legitimate activity checks."
+                "reason": "No new evidence requested; initial uncertain verdict and exposure under $500 maintained with manual escalation."
             }
         ],
         "what_changed": "nothing"
@@ -56,7 +58,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 10.237
+    "latency_s": 77.29
 }

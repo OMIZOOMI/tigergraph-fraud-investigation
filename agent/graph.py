@@ -2,6 +2,7 @@
 
 import os
 import json
+import re
 from datetime import datetime, timezone
 
 from dotenv import find_dotenv, load_dotenv
@@ -71,6 +72,20 @@ def _parse_json_object(text: str) -> dict:
     return {}
 
 
+def _undocumented_description(description: str, evidence: str) -> str:
+    """Ensure an undocumented pattern has the rubric-required explanation."""
+    description = str(description or evidence).strip()
+    sentences = re.findall(r"[^.!?]+[.!?]", description)
+    if len(sentences) < 2:
+        base = description.rstrip(".!?") or "The activity shows suspicious behavior."
+        description = (
+            f"{base}. This suspicious activity does not fit the five recognized "
+            "fraud patterns and is therefore classified as undocumented."
+        )
+        sentences = re.findall(r"[^.!?]+[.!?]", description)
+    return " ".join(sentences[:3]).strip()
+
+
 def _run_investigator(state: InvestigationState):
     messages = [
         SystemMessage(content=INVESTIGATOR_PROMPT),
@@ -130,13 +145,27 @@ def investigate_node(state: InvestigationState) -> dict:
     except (TypeError, ValueError):
         probability = 0.0
     pattern = str(result.get("pattern", "undetermined"))
-    verdict = "fraud" if probability >= 0.5 else "legitimate" if probability <= 0.15 else "uncertain"
+    if 0.30 <= probability <= 0.70:
+        verdict = "uncertain"
+    elif probability <= 0.15:
+        verdict = "legitimate"
+    elif probability > 0.70:
+        verdict = "fraud"
+    else:
+        verdict = "uncertain"
     status = {
         "fraud": "closed_fraud",
         "legitimate": "closed_legitimate",
         "uncertain": "escalated",
     }[verdict]
     flagged_txn_id = state.get("trigger_context", {}).get("flagged_txn_id", "")
+    exposure = state.get("trigger_context", {}).get("exposure_usd", 0.0)
+    try:
+        exposure = max(0.0, float(exposure))
+    except (TypeError, ValueError):
+        exposure = 0.0
+    if verdict == "legitimate":
+        exposure = 0.0
     evidence = [{
         "claim": evidence_text,
         "source": "graph",
@@ -156,12 +185,16 @@ def investigate_node(state: InvestigationState) -> dict:
         "evidence": evidence,
         "fraud_probability": probability,
         "pattern": pattern,
-        "pattern_description": evidence_text if pattern == "undocumented" else "",
+        "pattern_description": (
+            _undocumented_description(result.get("pattern_description", ""), evidence_text)
+            if pattern == "undocumented"
+            else ""
+        ),
         "affected_txn_ids": [flagged_txn_id] if flagged_txn_id and verdict != "legitimate" else [],
         "first_suspicious_txn_id": flagged_txn_id,
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": exposure,
         "similar_prior_cases": similar_prior_cases,
         "summary": evidence_text,
         "written_to_graph": False,
@@ -233,6 +266,8 @@ def decide_action_node(state: InvestigationState) -> dict:
                     f"trigger_context={json.dumps(state.get('trigger_context', {}), default=str)}\n"
                     f"evidence={json.dumps(state['evidence'], default=str)}\n"
                     f"fraud_probability={state['fraud_probability']}\n"
+                    f"verdict={state.get('verdict', '')}\n"
+                    f"exposure_usd={state.get('exposure_usd', 0.0)}\n"
                     f"pattern={state['pattern']}\n"
                     f"evidence_requests={json.dumps(evidence_requests, default=str)}\n"
                     f"prior_actions={json.dumps(previous_actions, default=str)}"
@@ -249,9 +284,23 @@ def decide_action_node(state: InvestigationState) -> dict:
     parsed_initial = _extract_action(result, "initial")
     parsed_final = _extract_action(result, "final")
 
+    r8_action = {
+        "action": "ESCALATE_TO_ANALYST",
+        "route": "auto",
+        "reason": "Policy R8: uncertain verdict with exposure above $500 requires analyst escalation.",
+    }
+    must_escalate_r8 = (
+        state.get("verdict") == "uncertain"
+        and float(state.get("exposure_usd", 0.0) or 0.0) > 500
+    )
+
     if not evidence_requests:
-        initial_actions = [parsed_initial or parsed_final or fallback_action]
-        final_actions = [parsed_final or parsed_initial or fallback_action]
+        if must_escalate_r8:
+            initial_actions = [r8_action]
+            final_actions = [r8_action]
+        else:
+            initial_actions = [parsed_initial or parsed_final or fallback_action]
+            final_actions = [parsed_final or parsed_initial or fallback_action]
         what_changed = "nothing"
     else:
         initial_actions = previous_actions.get("initial", [])
@@ -259,8 +308,15 @@ def decide_action_node(state: InvestigationState) -> dict:
             initial_actions = [parsed_initial or fallback_action]
 
         final_action = parsed_final or fallback_action
-        escalated_actions = {"BLOCK_CARD", "BLOCK_ALL_CARDS", "DECLINE_TRANSACTION"}
-        if final_action["action"] not in escalated_actions:
+        escalated_actions = {
+            "BLOCK_CARD",
+            "BLOCK_ALL_CARDS",
+            "DECLINE_TRANSACTION",
+            "ESCALATE_TO_ANALYST",
+        }
+        if must_escalate_r8:
+            final_action = r8_action
+        elif final_action["action"] not in escalated_actions:
             final_action = {
                 "action": "BLOCK_CARD",
                 "route": "L1",
@@ -268,6 +324,8 @@ def decide_action_node(state: InvestigationState) -> dict:
             }
         final_actions = [final_action]
         what_changed = str(result.get("what_changed", "")).strip()
+        if must_escalate_r8:
+            what_changed = "Policy R8 requires analyst escalation because the verdict is uncertain and exposure exceeds $500."
         if not what_changed or what_changed.lower() == "nothing":
             what_changed = (
                 f"Customer validation changed the recommendation from "

@@ -1,21 +1,19 @@
 {
     "case_id": "HHG-014",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.75,
-        "pattern": "Card-not-present fraud from a new device",
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.05,
+        "pattern": "none",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3478561"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3478561",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C13487-K1 shows regular in-person transactions and occasional online purchases (e.g., txn 3478561 for $74.96 on 2016-11-22 and txn 3489320 for $252.28 on 2016-11-26). The analyst notes that several cards this month exhibit purchases from the same unusual device profile. Local and global historical lookups yielded no matching prior closed cases.",
+                "claim": "Analysis of card C13487-K1 transaction history reveals frequent routine in-person purchases (product code W, typically $25-$55) interspersed with occasional online transactions (product code C, e.g., $74.96 on 2016-11-22, $112.37 on 2016-11-15, and $252.28 on 2016-11-26). The flagged transaction 3478561 ($74.96) and related activity fit normal cardholder usage patterns without indicators of card testing, out-of-region anomalies, or account takeover. Local case lookup found no similar prior cases.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,33 +23,27 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card C13487-K1 shows regular in-person transactions and occasional online purchases (e.g., txn 3478561 for $74.96 on 2016-11-22 and txn 3489320 for $252.28 on 2016-11-26). The analyst notes that several cards this month exhibit purchases from the same unusual device profile. Local and global historical lookups yielded no matching prior closed cases.",
+        "summary": "Analysis of card C13487-K1 transaction history reveals frequent routine in-person purchases (product code W, typically $25-$55) interspersed with occasional online transactions (product code C, e.g., $74.96 on 2016-11-22, $112.37 on 2016-11-15, and $252.28 on 2016-11-26). The flagged transaction 3478561 ($74.96) and related activity fit normal cardholder usage patterns without indicators of card testing, out-of-region anomalies, or account takeover. Local case lookup found no similar prior cases.",
         "written_to_graph": true,
         "graph_case_id": "HHG-014"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "STEP_UP_AUTH",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Moderate fraud probability with a new device profile for online transactions warrants step-up authentication before blocking."
+                "reason": "Evidence confirms the transaction fits normal cardholder usage patterns with zero indicators of fraud, resulting in a low fraud probability of 0.05."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Customer confirmed they did not make the purchases and still has the card, indicating card compromise via an unusual device profile."
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
+                "reason": "Evidence confirms the transaction fits normal cardholder usage patterns with zero indicators of fraud, resulting in a low fraud probability of 0.05."
             }
         ],
-        "what_changed": "Customer validation confirmed unauthorized activity and physical card possession, escalating the response from step-up authentication to card blocking."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -64,5 +56,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 20.539
+    "latency_s": 58.276
 }

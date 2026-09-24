@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.99,
-        "pattern": "card-not-present fraud from a new device",
+        "fraud_probability": 0.95,
+        "pattern": "Card-not-present fraud from a new device",
         "pattern_description": "",
         "affected_txn_ids": [
             "3558054"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3558054",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 55.68,
         "evidence": [
             {
-                "claim": "Customer C13171 reported an unrecognized online purchase of $55.68 (txn 3558054) on card C13171-K2. Local case history reveals extensive prior confirmed fraud cases on this same card and customer (e.g., CC-0056 through CC-5010), demonstrating an ongoing pattern of card-not-present fraud from new or unrecognized devices.",
+                "claim": "Customer C13171 reported an unrecognized $55.68 online purchase (txn 3558054) on card C13171-K2. Card transaction history shows sparse activity, and local precedent reveals extensive history of confirmed card-not-present fraud from new or unrecognized devices on this card.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -45,7 +45,7 @@
             "CC-4819",
             "CC-5010"
         ],
-        "summary": "Customer C13171 reported an unrecognized online purchase of $55.68 (txn 3558054) on card C13171-K2. Local case history reveals extensive prior confirmed fraud cases on this same card and customer (e.g., CC-0056 through CC-5010), demonstrating an ongoing pattern of card-not-present fraud from new or unrecognized devices.",
+        "summary": "Customer C13171 reported an unrecognized $55.68 online purchase (txn 3558054) on card C13171-K2. Card transaction history shows sparse activity, and local precedent reveals extensive history of confirmed card-not-present fraud from new or unrecognized devices on this card.",
         "written_to_graph": true,
         "graph_case_id": "HHG-008"
     },
@@ -55,14 +55,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer confirmed unauthorized online purchase of $55.68 on card C13171-K2, supported by an established pattern of prior confirmed fraud on this card under $2,500 exposure."
+                "reason": "Fraud probability is 0.95 with customer confirmation of unauthorized transaction and historical CNP fraud on the card; exposure is $55.68 (<$2500)."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer confirmed unauthorized online purchase of $55.68 on card C13171-K2, supported by an established pattern of prior confirmed fraud on this card under $2,500 exposure."
+                "reason": "Fraud probability is 0.95 with customer confirmation of unauthorized transaction and historical CNP fraud on the card; exposure is $55.68 (<$2500)."
             }
         ],
         "what_changed": "nothing"
@@ -76,7 +76,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 9.172
+    "latency_s": 83.933
 }

@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "card-not-present fraud",
+        "fraud_probability": 0.95,
+        "pattern": "card testing",
         "pattern_description": "",
         "affected_txn_ids": [
             "3581141"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3581141",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 30.02,
         "evidence": [
             {
-                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online, ts: 2016-12-28 12:10:53) as unauthorized. Card history shows multiple bursts of online transactions including card-testing style patterns (e.g., December 30 with three rapid small authorizations around $20, and December 31 with six rapid authorizations around $50). No prior local closed cases found for this card/customer.",
+                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online, ts: 2016-12-28 12:10:53) as unauthorized. Review of the card history for C08299-K1 shows multiple bursts of online transactions including a sequence of three small online purchases on 2016-12-30 around $20 each (risk scores up to 0.85) and multiple online authorizations on 2016-12-31 around $50 each, fitting the classic card-testing pattern.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online, ts: 2016-12-28 12:10:53) as unauthorized. Card history shows multiple bursts of online transactions including card-testing style patterns (e.g., December 30 with three rapid small authorizations around $20, and December 31 with six rapid authorizations around $50). No prior local closed cases found for this card/customer.",
+        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online, ts: 2016-12-28 12:10:53) as unauthorized. Review of the card history for C08299-K1 shows multiple bursts of online transactions including a sequence of three small online purchases on 2016-12-30 around $20 each (risk scores up to 0.85) and multiple online authorizations on 2016-12-31 around $50 each, fitting the classic card-testing pattern.",
         "written_to_graph": true,
         "graph_case_id": "HHG-009"
     },
@@ -35,14 +35,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized $30.02 online purchase with subsequent card-testing patterns observed in the graph evidence."
+                "reason": "Fraud probability is 0.95 with clear card testing evidence and exposure under $2,500, justifying card blocking."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized $30.02 online purchase with subsequent card-testing patterns observed in the graph evidence."
+                "reason": "Fraud probability is 0.95 with clear card testing evidence and exposure under $2,500, justifying card blocking."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 23.192
+    "latency_s": 115.727
 }

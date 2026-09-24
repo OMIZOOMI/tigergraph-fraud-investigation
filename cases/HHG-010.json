@@ -3,8 +3,8 @@
     "case": {
         "status": "escalated",
         "verdict": "uncertain",
-        "fraud_probability": 0.35,
-        "pattern": "card-not-present fraud",
+        "fraud_probability": 0.2,
+        "pattern": "none",
         "pattern_description": "",
         "affected_txn_ids": [
             "3506725"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3506725",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 1000.03,
         "evidence": [
             {
-                "claim": "Review of card C10434-K1 history reveals transaction 3506725 for $1,000.03 via online channel on 2016-12-02 with a high risk score of 0.90. The cardholder's transaction history shows regular mixed-channel usage (both in-person and online), but this transaction amount is significantly higher than typical online activity. Similar local historical case CC-0873 involved a high risk score (0.93) for an online/region-flagged transaction that was ultimately cleared due to verified cardholder travel/activity. However, the size of this transaction ($1,000.03) represents an anomaly relative to past online purchases.",
+                "claim": "Transaction 3506725 ($1,000.03, online) was flagged with a risk score of 0.90. Card history shows a mix of online and in-person purchases with varying amounts, including prior large in-person transactions (e.g., $670) and moderate online purchases. Historical precedent CC-0873 indicates a similar high-risk alert on this card/customer was previously cleared after confirming travel.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -27,33 +27,27 @@
         "similar_prior_cases": [
             "CC-0873"
         ],
-        "summary": "Review of card C10434-K1 history reveals transaction 3506725 for $1,000.03 via online channel on 2016-12-02 with a high risk score of 0.90. The cardholder's transaction history shows regular mixed-channel usage (both in-person and online), but this transaction amount is significantly higher than typical online activity. Similar local historical case CC-0873 involved a high risk score (0.93) for an online/region-flagged transaction that was ultimately cleared due to verified cardholder travel/activity. However, the size of this transaction ($1,000.03) represents an anomaly relative to past online purchases.",
+        "summary": "Transaction 3506725 ($1,000.03, online) was flagged with a risk score of 0.90. Card history shows a mix of online and in-person purchases with varying amounts, including prior large in-person transactions (e.g., $670) and moderate online purchases. Historical precedent CC-0873 indicates a similar high-risk alert on this card/customer was previously cleared after confirming travel.",
         "written_to_graph": true,
         "graph_case_id": "HHG-010"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ESCALATE_TO_ANALYST",
                 "route": "auto",
-                "reason": "Fraud probability is moderate (0.35) with an online transaction anomaly of $1,000.03, warranting customer verification without blocking."
+                "reason": "Policy R8: uncertain verdict with exposure above $500 requires analyst escalation."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Customer confirmed they did not make the purchase and still have the card, confirming unauthorized compromise requiring card block (exposure $1,000.03 is below $2,500)."
+                "action": "ESCALATE_TO_ANALYST",
+                "route": "auto",
+                "reason": "Policy R8: uncertain verdict with exposure above $500 requires analyst escalation."
             }
         ],
-        "what_changed": "Customer validation response confirmed unauthorized activity and physical card possession, escalating the recommendation from customer verification to blocking the card."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -64,7 +58,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 11.101
+    "latency_s": 90.067
 }

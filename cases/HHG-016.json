@@ -1,21 +1,19 @@
 {
     "case_id": "HHG-016",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.35,
-        "pattern": "card-not-present fraud",
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.15,
+        "pattern": "none",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3534820"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3534820",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C09988 reported unauthorized transaction 3534820 ($59.67, online, occurred on 2016-12-11 22:39:08). Card C09988-K1 has an extensive history of online transactions without any indications of card testing or unusual geographic anomalies. No prior local similar cases found.",
+                "claim": "Customer C09988 reported an unauthorized online transaction of $59.67 (txn_vertex 3534820) on 2016-12-11. Card history for C09988-K1 shows frequent, ongoing online transactions spanning September to December 2016 with varied amounts and low risk scores, continuing well after the disputed charge without further customer complaints in the record. No local similar prior cases were found.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,33 +23,27 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C09988 reported unauthorized transaction 3534820 ($59.67, online, occurred on 2016-12-11 22:39:08). Card C09988-K1 has an extensive history of online transactions without any indications of card testing or unusual geographic anomalies. No prior local similar cases found.",
+        "summary": "Customer C09988 reported an unauthorized online transaction of $59.67 (txn_vertex 3534820) on 2016-12-11. Card history for C09988-K1 shows frequent, ongoing online transactions spanning September to December 2016 with varied amounts and low risk scores, continuing well after the disputed charge without further customer complaints in the record. No local similar prior cases were found.",
         "written_to_graph": true,
         "graph_case_id": "HHG-016"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Customer reported an unauthorized $59.67 online purchase on card C09988-K1, but the fraud probability is moderate (0.35) and the card has a clean history. Verifying transaction authenticity with the customer is the least disruptive appropriate action."
+                "reason": "Customer reported an unauthorized transaction, but the verdict is legitimate with low probability and normal transaction history."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Customer confirmed they did not make the purchase and still possess the card, confirming card compromise. Since exposure is below $2,500, BLOCK_CARD on route L1 is required."
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
+                "reason": "Customer reported an unauthorized transaction, but the verdict is legitimate with low probability and normal transaction history."
             }
         ],
-        "what_changed": "Customer validation response confirmed unauthorized activity and possession of the physical card, escalating the finding to confirmed compromise and necessitating card blocking."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -62,7 +54,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 4,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 13.552
+    "latency_s": 74.253
 }

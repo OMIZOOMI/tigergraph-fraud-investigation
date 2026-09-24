@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3526826",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 35.66,
         "evidence": [
             {
-                "claim": "Real-time model scored transaction 3526826 ($35.66, online) at 0.76. Card C07671-K2 history shows multiple in-person transactions between September and December 2016. Local similar case history reveals multiple confirmed fraud cases (CC-1475, CC-3216, CC-4294) and one cleared case (CC-3761) on this card/customer, demonstrating a prior history of account takeover and CNP fraud.",
+                "claim": "Card C07671-K2 has multiple confirmed prior fraud cases (CC-1475, CC-3216, CC-4294) involving unauthorized mixed-channel activity and online purchases from new devices. The current trigger is a $35.66 online transaction scored 0.76. Although the transaction history shows prior in-person transactions, the customer has a significant history of account compromise and fraudulent takeover patterns.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -30,7 +30,7 @@
             "CC-3761",
             "CC-4294"
         ],
-        "summary": "Real-time model scored transaction 3526826 ($35.66, online) at 0.76. Card C07671-K2 history shows multiple in-person transactions between September and December 2016. Local similar case history reveals multiple confirmed fraud cases (CC-1475, CC-3216, CC-4294) and one cleared case (CC-3761) on this card/customer, demonstrating a prior history of account takeover and CNP fraud.",
+        "summary": "Card C07671-K2 has multiple confirmed prior fraud cases (CC-1475, CC-3216, CC-4294) involving unauthorized mixed-channel activity and online purchases from new devices. The current trigger is a $35.66 online transaction scored 0.76. Although the transaction history shows prior in-person transactions, the customer has a significant history of account compromise and fraudulent takeover patterns.",
         "written_to_graph": true,
         "graph_case_id": "HHG-013"
     },
@@ -40,14 +40,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "High fraud probability (0.85) with account takeover pattern and prior confirmed fraud history on the card, exposure is well below $2,500."
+                "reason": "High fraud probability (0.85) and documented account takeover pattern with multiple prior fraud cases justify card blocking below $2,500 exposure."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "High fraud probability (0.85) with account takeover pattern and prior confirmed fraud history on the card, exposure is well below $2,500."
+                "reason": "High fraud probability (0.85) and documented account takeover pattern with multiple prior fraud cases justify card blocking below $2,500 exposure."
             }
         ],
         "what_changed": "nothing"
@@ -61,7 +61,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 9.455
+    "latency_s": 62.068
 }

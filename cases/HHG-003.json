@@ -3,7 +3,7 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
+        "fraud_probability": 0.95,
         "pattern": "out-of-region use",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3530164",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 49.0,
         "evidence": [
             {
-                "claim": "Customer C08623 disputed a $49.00 purchase (txn 3530164, referenced in trigger context). Review of card C08623-K2 history shows multiple in-person transactions spanning October to December 2016, with varying billing regions (addr1 269, 225, 123, 448, 204). Local case history reveals a substantial pattern of prior confirmed fraud on this specific card and customer (cases CC-2817, CC-2935, CC-3327, CC-3682, CC-4957), predominantly involving out-of-region card-present use while the cardholder retained the card.",
+                "claim": "Customer C08623 reported an unauthorized $49.00 transaction (txn_id 3530164, referenced in trigger) on card C08623-K2. Card transaction history shows prior in-person transactions on 2016-12-11 ($116.97, addr1: '204') and multiple October 2016 transactions in regions like '448', '123', '225', and '269'. Local case history reveals multiple confirmed fraud precedents on this exact card and customer (CC-2817, CC-2935, CC-3327, CC-3682, CC-4957) involving out-of-region card-present use while the cardholder retained the card.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -32,7 +32,7 @@
             "CC-3682",
             "CC-4957"
         ],
-        "summary": "Customer C08623 disputed a $49.00 purchase (txn 3530164, referenced in trigger context). Review of card C08623-K2 history shows multiple in-person transactions spanning October to December 2016, with varying billing regions (addr1 269, 225, 123, 448, 204). Local case history reveals a substantial pattern of prior confirmed fraud on this specific card and customer (cases CC-2817, CC-2935, CC-3327, CC-3682, CC-4957), predominantly involving out-of-region card-present use while the cardholder retained the card.",
+        "summary": "Customer C08623 reported an unauthorized $49.00 transaction (txn_id 3530164, referenced in trigger) on card C08623-K2. Card transaction history shows prior in-person transactions on 2016-12-11 ($116.97, addr1: '204') and multiple October 2016 transactions in regions like '448', '123', '225', and '269'. Local case history reveals multiple confirmed fraud precedents on this exact card and customer (CC-2817, CC-2935, CC-3327, CC-3682, CC-4957) involving out-of-region card-present use while the cardholder retained the card.",
         "written_to_graph": true,
         "graph_case_id": "HHG-003"
     },
@@ -42,14 +42,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized $49.00 transaction with high fraud probability (0.85) and an extensive history of prior confirmed fraud on this specific card."
+                "reason": "High fraud probability with confirmed fraud precedents and out-of-region card-present use on card C08623-K2; exposure is under $2,500."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized $49.00 transaction with high fraud probability (0.85) and an extensive history of prior confirmed fraud on this specific card."
+                "reason": "High fraud probability with confirmed fraud precedents and out-of-region card-present use on card C08623-K2; exposure is under $2,500."
             }
         ],
         "what_changed": "nothing"
@@ -63,7 +63,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 7.722
+    "latency_s": 74.533
 }

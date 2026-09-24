@@ -4,7 +4,7 @@
         "status": "closed_fraud",
         "verdict": "fraud",
         "fraud_probability": 0.95,
-        "pattern": "Card testing",
+        "pattern": "card testing",
         "pattern_description": "",
         "affected_txn_ids": [
             "3583368"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3583368",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 131.3,
         "evidence": [
             {
-                "claim": "Customer C11923 reported an unrecognized online purchase ($131.30, transaction vertex 3583368 / similar history showing a burst of online transactions on 2016-12-06 and 2016-12-07 including small authorizations like $2.68 and $4.33 followed by larger purchases such as $124.79). Historical precedent from local cases for card C11923-K2 shows recurrent confirmed fraud patterns involving card testing sequences and unauthorized online activity.",
+                "claim": "Customer C11923 reported an unauthorized $131.30 purchase (transaction 3583368). Card history on C11923-K2 shows a burst of online transactions on December 6-7, 2016, featuring small testing amounts followed by larger purchases (e.g., $2.68, $4.33, $8.02, leading up to amounts over $120). Historical cases for this card (e.g., CC-0290, CC-2247, CC-4501) confirm recurrent card testing and CNP fraud patterns on this account.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -37,7 +37,7 @@
             "CC-4501",
             "CC-4743"
         ],
-        "summary": "Customer C11923 reported an unrecognized online purchase ($131.30, transaction vertex 3583368 / similar history showing a burst of online transactions on 2016-12-06 and 2016-12-07 including small authorizations like $2.68 and $4.33 followed by larger purchases such as $124.79). Historical precedent from local cases for card C11923-K2 shows recurrent confirmed fraud patterns involving card testing sequences and unauthorized online activity.",
+        "summary": "Customer C11923 reported an unauthorized $131.30 purchase (transaction 3583368). Card history on C11923-K2 shows a burst of online transactions on December 6-7, 2016, featuring small testing amounts followed by larger purchases (e.g., $2.68, $4.33, $8.02, leading up to amounts over $120). Historical cases for this card (e.g., CC-0290, CC-2247, CC-4501) confirm recurrent card testing and CNP fraud patterns on this account.",
         "written_to_graph": true,
         "graph_case_id": "HHG-011"
     },
@@ -47,14 +47,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized online purchase under card testing pattern with 0.95 fraud probability and exposure below $2,500."
+                "reason": "High fraud probability (0.95) with confirmed recurrent card testing and CNP fraud pattern; exposure is below $2500."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized online purchase under card testing pattern with 0.95 fraud probability and exposure below $2,500."
+                "reason": "High fraud probability (0.95) with confirmed recurrent card testing and CNP fraud pattern; exposure is below $2500."
             }
         ],
         "what_changed": "nothing"
@@ -68,7 +68,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 7.777
+    "latency_s": 61.629
 }

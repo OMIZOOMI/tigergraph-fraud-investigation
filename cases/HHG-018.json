@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "out-of-region use",
+        "fraud_probability": 0.95,
+        "pattern": "account takeover",
         "pattern_description": "",
         "affected_txn_ids": [
             "3491361"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3491361",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 39.08,
         "evidence": [
             {
-                "claim": "Customer C02354 reported an unrecognized $39.08 purchase on card C02354-K2. Card history reveals multiple in-person transactions spanning September and December 2016, with significant local precedent (e.g., CC-5441, CC-4721, CC-4436, CC-4070, CC-3899) involving confirmed fraudulent out-of-region use and mixed-channel activity on this card.",
+                "claim": "Customer C02354 reported a fraudulent $39.08 transaction (Txn 3491361, though note card history shows recent in-person activity on card C02354-K2 in Dec 2016). Local history reveals an extensive pattern of prior confirmed fraud on this exact card and customer (e.g., CC-0255, CC-0454, CC-0631, CC-1450, CC-1699, CC-2051, CC-2187, CC-2432, CC-2589, CC-3085, CC-3537, CC-3634, CC-3899, CC-4070, CC-4436, CC-4721, CC-4942, CC-5441, CC-5558) spanning card-present out-of-region use and account takeover patterns.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -46,7 +46,7 @@
             "CC-5441",
             "CC-5558"
         ],
-        "summary": "Customer C02354 reported an unrecognized $39.08 purchase on card C02354-K2. Card history reveals multiple in-person transactions spanning September and December 2016, with significant local precedent (e.g., CC-5441, CC-4721, CC-4436, CC-4070, CC-3899) involving confirmed fraudulent out-of-region use and mixed-channel activity on this card.",
+        "summary": "Customer C02354 reported a fraudulent $39.08 transaction (Txn 3491361, though note card history shows recent in-person activity on card C02354-K2 in Dec 2016). Local history reveals an extensive pattern of prior confirmed fraud on this exact card and customer (e.g., CC-0255, CC-0454, CC-0631, CC-1450, CC-1699, CC-2051, CC-2187, CC-2432, CC-2589, CC-3085, CC-3537, CC-3634, CC-3899, CC-4070, CC-4436, CC-4721, CC-4942, CC-5441, CC-5558) spanning card-present out-of-region use and account takeover patterns.",
         "written_to_graph": true,
         "graph_case_id": "HHG-018"
     },
@@ -56,14 +56,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized transaction and graph evidence shows confirmed out-of-region fraud patterns on the card."
+                "reason": "High fraud probability (0.95) with confirmed customer report of unauthorized purchase and extensive history of fraud on the card/customer."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized transaction and graph evidence shows confirmed out-of-region fraud patterns on the card."
+                "reason": "High fraud probability (0.95) with confirmed customer report of unauthorized purchase and extensive history of fraud on the card/customer."
             }
         ],
         "what_changed": "nothing"
@@ -77,7 +77,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 96.115
+    "latency_s": 90.063
 }

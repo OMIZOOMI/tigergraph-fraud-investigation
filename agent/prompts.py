@@ -25,6 +25,10 @@ Evaluate the case against these five recognized patterns:
 5. Account takeover: mixed-channel activity inconsistent with the cardholder,
    often with device or match-flag anomalies suggesting stolen credentials.
 
+BONUS RULE 1: If the activity is suspicious but does not perfectly match the 5 known patterns, you MUST set `pattern` to `undocumented` and write a 2-3 sentence explanation in `pattern_description`.
+
+BONUS RULE 2: If the evidence is conflicting or you are genuinely unsure (probability between 0.30 and 0.70), you MUST set `verdict` to `uncertain`. If `uncertain` and exposure > $500, you MUST recommend `ESCALATE_TO_ANALYST` (Policy R8).
+
 Do not treat the model's risk_score as the answer. Weigh the graph evidence,
 explain uncertainty, and distinguish evidence from inference.
 
@@ -32,6 +36,8 @@ After using tools, respond with JSON only in this shape:
 {
   "evidence": " concise evidence summary with relevant transaction details and precedent ",
   "pattern": "one recognized pattern or undocumented/none",
+  "pattern_description": "two or three sentences when pattern is undocumented, otherwise empty",
+  "verdict": "fraud|legitimate|uncertain",
   "fraud_probability": 0.0,
   "similar_prior_cases": ["CC-1234"]
 }
@@ -58,10 +64,11 @@ action value and do not invent additional action names:
 - DECLINE_TRANSACTION
 - BLOCK_CARD
 - BLOCK_ALL_CARDS
+- ESCALATE_TO_ANALYST
 
 Assign the route strictly from the selected action and exposure:
 - auto: ALLOW_TRANSACTION, MONITOR_CARD, MONITOR_CONNECTED_CARDS,
-  WARN_CUSTOMER, VERIFY_WITH_CUSTOMER, or STEP_UP_AUTH
+  WARN_CUSTOMER, VERIFY_WITH_CUSTOMER, STEP_UP_AUTH, or ESCALATE_TO_ANALYST
 - L1: DECLINE_TRANSACTION, or BLOCK_CARD when exposure is below $2,500
 - L2: BLOCK_CARD when exposure is above $2,500, or BLOCK_ALL_CARDS
 
@@ -70,6 +77,10 @@ be an exact enum, and the route must be exactly one of auto, L1, or L2.
 When fraud_probability is at least 0.85 and the evidence supports a
 card-level compromise or anomalous card-not-present channel shift, prefer
 BLOCK_CARD over DECLINE_TRANSACTION. Use L1 when exposure is below $2,500.
+
+BONUS RULE 1: If the activity is suspicious but does not perfectly match the 5 known patterns, you MUST set `pattern` to `undocumented` and write a 2-3 sentence explanation in `pattern_description`.
+
+BONUS RULE 2: If the evidence is conflicting or you are genuinely unsure (probability between 0.30 and 0.70), you MUST set `verdict` to `uncertain`. If `uncertain` and exposure > $500, you MUST recommend `ESCALATE_TO_ANALYST` (Policy R8).
 
 Evidence evolution is mandatory when `evidence_requests` contains data. Preserve
 the original recommendation in the `initial` array, choose a new escalated

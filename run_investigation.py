@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 
 import pandas as pd
@@ -23,6 +24,11 @@ def safe_text(value):
 
 def safe_score(value):
     return None if pd.isna(value) else float(value)
+
+
+def extract_exposure(trigger_text):
+    match = re.search(r"\$([\d,]+(?:\.\d+)?)", safe_text(trigger_text))
+    return float(match.group(1).replace(",", "")) if match else 0.0
 
 
 def build_output(case_id, state, latency_s):
@@ -105,6 +111,7 @@ for index, (_, row) in enumerate(df.iterrows()):
         "customer_id": safe_text(row.get("customer_id", "")),
         "flagged_txn_id": safe_text(row.get("flagged_txn_id", "")),
         "initial_risk_score": safe_score(row.get("risk_score", float("nan"))),
+        "exposure_usd": extract_exposure(row.get("trigger_text", "")),
         "opened_at": safe_text(row.get("opened_at", "")),
     }
 

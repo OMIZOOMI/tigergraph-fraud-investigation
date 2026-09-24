@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "Card-not-present fraud",
+        "fraud_probability": 0.92,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3503878"
@@ -12,10 +12,10 @@
         "first_suspicious_txn_id": "3503878",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 99.92,
         "evidence": [
             {
-                "claim": "Card C07987-K2 received a high risk score (0.90) for online transaction 3503878 ($99.92) on 2016-12-01. Historical precedent includes multiple confirmed fraud cases on this same card/customer (CC-2011, CC-2860, CC-5026), involving online and out-of-region card-not-present activity.",
+                "claim": "Card C07987-K2 has a high-risk online transaction of $99.92 scored at 0.90. Local case history reveals multiple confirmed prior fraud cases on this exact card (CC-2011, CC-2860, CC-5026), demonstrating an established pattern of unauthorized online and out-of-region activity.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -30,7 +30,7 @@
             "CC-2860",
             "CC-5026"
         ],
-        "summary": "Card C07987-K2 received a high risk score (0.90) for online transaction 3503878 ($99.92) on 2016-12-01. Historical precedent includes multiple confirmed fraud cases on this same card/customer (CC-2011, CC-2860, CC-5026), involving online and out-of-region card-not-present activity.",
+        "summary": "Card C07987-K2 has a high-risk online transaction of $99.92 scored at 0.90. Local case history reveals multiple confirmed prior fraud cases on this exact card (CC-2011, CC-2860, CC-5026), demonstrating an established pattern of unauthorized online and out-of-region activity.",
         "written_to_graph": true,
         "graph_case_id": "HHG-019"
     },
@@ -40,14 +40,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "High fraud probability (0.85) with historical confirmed fraud cases on card C07987-K2 and exposure under $2,500 ($99.92 transaction with repeated online CNF history)."
+                "reason": "High fraud probability (0.92) with an established history of confirmed prior fraud on this exact card."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "High fraud probability (0.85) with historical confirmed fraud cases on card C07987-K2 and exposure under $2,500 ($99.92 transaction with repeated online CNF history)."
+                "reason": "High fraud probability (0.92) with an established history of confirmed prior fraud on this exact card."
             }
         ],
         "what_changed": "nothing"
@@ -63,5 +63,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 81.224
+    "latency_s": 56.268
 }

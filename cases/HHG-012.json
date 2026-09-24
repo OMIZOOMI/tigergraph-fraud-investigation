@@ -1,21 +1,21 @@
 {
     "case_id": "HHG-012",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.55,
-        "pattern": "out-of-region use",
-        "pattern_description": "",
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.5,
+        "pattern": "undocumented",
+        "pattern_description": "The transaction exhibits a moderate risk score and an isolated online amount following previous historical compromise on the card, fitting none of the five standard patterns cleanly.  This suspicious activity does not fit the five recognized fraud patterns and is therefore classified as undocumented.",
         "affected_txn_ids": [
             "3553342"
         ],
         "first_suspicious_txn_id": "3553342",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 30.91,
         "evidence": [
             {
-                "claim": "Card C05876-K2 has a history of in-person transactions, but the flagged transaction 3553342 ($30.91 in billing region 494.0) represents out-of-region or unexpected channel activity. Local historical precedent (CC-2370) indicates a prior confirmed fraud case for this cardholder and card involving unrecognized online purchases, though CC-0003 demonstrates potential legitimate travel.",
+                "claim": "Card C05876-K2 has prior history of in-person purchases in late 2016 and late 2015, but local case history reveals a prior confirmed fraud case (CC-2370) involving unrecognized online purchases on this same card. The current transaction is a $30.91 online/remote authorization with a moderate risk score of 0.55. Historical precedent shows prior compromise on this card, but the current transaction amount is relatively small and lacks definitive card-testing velocity or clear out-of-region indicators.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -28,33 +28,27 @@
             "CC-0003",
             "CC-2370"
         ],
-        "summary": "Card C05876-K2 has a history of in-person transactions, but the flagged transaction 3553342 ($30.91 in billing region 494.0) represents out-of-region or unexpected channel activity. Local historical precedent (CC-2370) indicates a prior confirmed fraud case for this cardholder and card involving unrecognized online purchases, though CC-0003 demonstrates potential legitimate travel.",
+        "summary": "Card C05876-K2 has prior history of in-person purchases in late 2016 and late 2015, but local case history reveals a prior confirmed fraud case (CC-2370) involving unrecognized online purchases on this same card. The current transaction is a $30.91 online/remote authorization with a moderate risk score of 0.55. Historical precedent shows prior compromise on this card, but the current transaction amount is relatively small and lacks definitive card-testing velocity or clear out-of-region indicators.",
         "written_to_graph": true,
         "graph_case_id": "HHG-012"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ESCALATE_TO_ANALYST",
                 "route": "auto",
-                "reason": "Moderate fraud probability (0.55) with out-of-region channel shift and prior history of unrecognized online purchases; verification is the least disruptive appropriate action."
+                "reason": "Uncertain verdict with exposure under $500, but reviewing historical pattern."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Customer confirmed they did not make the purchases and still possess the card, confirming card compromise and unauthorized activity under $2,500 exposure."
+                "action": "ESCALATE_TO_ANALYST",
+                "route": "auto",
+                "reason": "Uncertain verdict with exposure under $500, but reviewing historical pattern."
             }
         ],
-        "what_changed": "Customer validation response confirmed unauthorized usage while retaining physical possession of the card, necessitating an escalation from verification to card blocking."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -67,5 +61,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 15.253
+    "latency_s": 67.872
 }

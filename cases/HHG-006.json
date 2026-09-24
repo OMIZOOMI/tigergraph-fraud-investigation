@@ -1,19 +1,21 @@
 {
     "case_id": "HHG-006",
     "case": {
-        "status": "closed_legitimate",
-        "verdict": "legitimate",
-        "fraud_probability": 0.1,
-        "pattern": "undocumented/none",
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.5,
+        "pattern": "none",
         "pattern_description": "",
-        "affected_txn_ids": [],
+        "affected_txn_ids": [
+            "3476682"
+        ],
         "first_suspicious_txn_id": "3476682",
         "connected_card_ids": [],
         "connected_device_profiles": [],
-        "exposure_usd": 0.0,
+        "exposure_usd": 482.12,
         "evidence": [
             {
-                "claim": "Customer C07297 reported unauthorized purchase 3476682 for $482.12. Card C07297-K1 history shows multiple in-person transactions spanning August and September 2016 across various billing regions (addr1 values), but no matching transaction vertex 3476682 appears in the retrieved card history or local case matches.",
+                "claim": "Customer C07297 reported a fraudulent $482.12 purchase (transaction 3476682). However, card C07297-K1's transaction history shows no recorded transactions corresponding to this flagged vertex or amount, and all recent history consists solely of in-person purchases through September 2016, whereas the case was opened in November 2016 with no local prior cases or supporting graph history for the disputed transaction.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -23,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C07297 reported unauthorized purchase 3476682 for $482.12. Card C07297-K1 history shows multiple in-person transactions spanning August and September 2016 across various billing regions (addr1 values), but no matching transaction vertex 3476682 appears in the retrieved card history or local case matches.",
+        "summary": "Customer C07297 reported a fraudulent $482.12 purchase (transaction 3476682). However, card C07297-K1's transaction history shows no recorded transactions corresponding to this flagged vertex or amount, and all recent history consists solely of in-person purchases through September 2016, whereas the case was opened in November 2016 with no local prior cases or supporting graph history for the disputed transaction.",
         "written_to_graph": true,
         "graph_case_id": "HHG-006"
     },
@@ -31,16 +33,16 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "ESCALATE_TO_ANALYST",
                 "route": "auto",
-                "reason": "The customer reported an unauthorized purchase, but the transaction vertex 3476682 does not exist in the graph or card history and fraud probability is very low (0.1), indicating an error or false report."
+                "reason": "Uncertain verdict with exposure under $500, requiring analyst review."
             }
         ],
         "final": [
             {
-                "action": "ALLOW_TRANSACTION",
+                "action": "ESCALATE_TO_ANALYST",
                 "route": "auto",
-                "reason": "The customer reported an unauthorized purchase, but the transaction vertex 3476682 does not exist in the graph or card history and fraud probability is very low (0.1), indicating an error or false report."
+                "reason": "Uncertain verdict with exposure under $500, requiring analyst review."
             }
         ],
         "what_changed": "nothing"
@@ -54,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 7.592
+    "latency_s": 42.949
 }
