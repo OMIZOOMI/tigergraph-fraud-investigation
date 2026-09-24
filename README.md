@@ -134,23 +134,23 @@ Feature work is developed in isolation, validated against the benchmark, merged
 into `main`, and then followed by case regeneration when output behavior changes.
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph P1["Phase 1: Feature Branching"]
-        direction TB
+        direction LR
         branch([Create feature branch])
         implement[Implement LangGraph / MCP logic]
         branch --> implement
     end
 
     subgraph P2["Phase 2: Local Validation"]
-        direction TB
+        direction LR
         syntax[Run syntax checks]
         isolated[Test isolated case]
         syntax --> isolated
     end
 
     subgraph P3["Phase 3: Batch Regeneration"]
-        direction TB
+        direction LR
         clear[Clear stale cases]
         batch[Execute all 20 benchmarks]
         outputs[(Generated case JSON)]
@@ -159,7 +159,7 @@ flowchart LR
     end
 
     subgraph P4["Phase 4: Integration"]
-        direction TB
+        direction LR
         review[Review JSON diffs]
         merge[Merge to main]
         review --> merge
@@ -170,9 +170,9 @@ flowchart LR
     schemaCheck -->|pass| review
     schemaCheck -->|fix| implement
 
-    classDef action fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#172033
-    classDef data fill:#FFF7ED,stroke:#C2410C,stroke-width:2px,color:#172033
-    classDef decision fill:#ECFDF5,stroke:#0F766E,stroke-width:2px,color:#172033
+    classDef action fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#172033,font-size:16px
+    classDef data fill:#FFF7ED,stroke:#C2410C,stroke-width:2px,color:#172033,font-size:16px
+    classDef decision fill:#ECFDF5,stroke:#0F766E,stroke-width:2px,color:#172033,font-size:16px
     class branch,implement,syntax,isolated,clear,batch,review,merge action
     class outputs data
     class schemaCheck decision
