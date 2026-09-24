@@ -134,21 +134,48 @@ Feature work is developed in isolation, validated against the benchmark, merged
 into `main`, and then followed by case regeneration when output behavior changes.
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"git0": "#4F46E5", "git1": "#0F766E", "git2": "#C2410C", "gitBranchLabel0": "#312E81", "gitBranchLabel1": "#115E59", "gitBranchLabel2": "#9A3412", "commitLabelColor": "#0F172A", "commitLabelBackground": "#F8FAFC", "commitLabelFontSize": "12px", "tagLabelColor": "#0F172A", "tagLabelBackground": "#FFF7ED", "tagLabelBorder": "#C2410C", "tagLabelFontSize": "11px", "fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px"}, "gitGraph": {"showBranches": true, "showCommitLabel": true, "rotateCommitLabel": false}}}%%
-gitGraph
-    commit id: "baseline"
-    branch engine
-    checkout engine
-    commit id: "build"
-    commit id: "validate"
-    checkout main
-    merge engine id: "merge engine"
-    branch docs
-    checkout docs
-    commit id: "refine README"
-    checkout main
-    merge docs id: "merge docs"
-    commit id: "publish"
+flowchart LR
+    subgraph P1["Phase 1: Feature Branching"]
+        direction TB
+        branch([Create feature branch])
+        implement[Implement LangGraph / MCP logic]
+        branch --> implement
+    end
+
+    subgraph P2["Phase 2: Local Validation"]
+        direction TB
+        syntax[Run syntax checks]
+        isolated[Test isolated case]
+        syntax --> isolated
+    end
+
+    subgraph P3["Phase 3: Batch Regeneration"]
+        direction TB
+        clear[Clear stale cases]
+        batch[Execute all 20 benchmarks]
+        outputs[(Generated case JSON)]
+        schemaCheck{Validate schema?}
+        clear --> batch --> outputs --> schemaCheck
+    end
+
+    subgraph P4["Phase 4: Integration"]
+        direction TB
+        review[Review JSON diffs]
+        merge[Merge to main]
+        review --> merge
+    end
+
+    implement --> syntax
+    isolated --> clear
+    schemaCheck -->|pass| review
+    schemaCheck -->|fix| implement
+
+    classDef action fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#172033
+    classDef data fill:#FFF7ED,stroke:#C2410C,stroke-width:2px,color:#172033
+    classDef decision fill:#ECFDF5,stroke:#0F766E,stroke-width:2px,color:#172033
+    class branch,implement,syntax,isolated,clear,batch,review,merge action
+    class outputs data
+    class schemaCheck decision
 ```
 
 Recommended workflow:
