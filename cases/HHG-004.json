@@ -4,7 +4,7 @@
         "status": "closed_fraud",
         "verdict": "fraud",
         "fraud_probability": 0.85,
-        "pattern": "card-not-present fraud",
+        "pattern": "card testing",
         "pattern_description": "",
         "affected_txn_ids": [
             "3583227"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08106 reported transaction 3583227 ($128.33, online channel, timestamp 2016-12-29 01:53:54) as fraudulent. Card history for C08106-K1 shows continuous online card-not-present activity with multiple transactions around that time, including amounts such as $6.48, $15.99, $16.05, and $128.33. Similar case lookup and device neighbor queries were unavailable due to disabled or invalid query parameters.",
+                "claim": "Customer C08106 reported txn 3583227 ($128.33, 2016-12-29 01:53:54) as unauthorized. Card history shows multiple small online transactions (e.g., $16.05, $15.99, $6.48, $8.36, $10.42, $5.73, $5.78) consistent with card testing behavior prior to larger charges, though historical precedent query and device queries were unavailable or returned errors.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08106 reported transaction 3583227 ($128.33, online channel, timestamp 2016-12-29 01:53:54) as fraudulent. Card history for C08106-K1 shows continuous online card-not-present activity with multiple transactions around that time, including amounts such as $6.48, $15.99, $16.05, and $128.33. Similar case lookup and device neighbor queries were unavailable due to disabled or invalid query parameters.",
+        "summary": "Customer C08106 reported txn 3583227 ($128.33, 2016-12-29 01:53:54) as unauthorized. Card history shows multiple small online transactions (e.g., $16.05, $15.99, $6.48, $8.36, $10.42, $5.73, $5.78) consistent with card testing behavior prior to larger charges, though historical precedent query and device queries were unavailable or returned errors.",
         "written_to_graph": true,
         "graph_case_id": "HHG-004"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "block card to prevent further unauthorized card-not-present transactions following the customer report of fraud",
+                "action": "BLOCK_CARD",
                 "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "block card to prevent further unauthorized card-not-present transactions following the customer report of fraud",
+                "action": "BLOCK_CARD",
                 "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.787
+    "latency_s": 15.503
 }

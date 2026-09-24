@@ -3,8 +3,8 @@
     "case": {
         "status": "escalated",
         "verdict": "uncertain",
-        "fraud_probability": 0.35,
-        "pattern": "undocumented/none",
+        "fraud_probability": 0.45,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3464869"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C03042-K1 shows the flagged transaction 3464869 ($599.94, online, risk score 0.77) occurred on 2016-11-17. The card exhibits mixed online and in-person transactions spanning multiple months with varying risk scores, but no clear card testing or multi-channel takeover pattern. Historical precedent search and device neighbor queries were unavailable due to query errors.",
+                "claim": "Card transaction history for C03042-K1 shows the flagged online transaction (3464869) on 2016-11-17 for $599.94 with a risk score of 0.77. The account exhibits frequent mixed-channel activity (both online and in-person transactions across multiple billing regions/addr1 codes) without evidence of a traditional card-testing sequence (three or more small authorizations under $5). Historical precedent and device neighbor searches were unavailable due to query execution errors.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C03042-K1 shows the flagged transaction 3464869 ($599.94, online, risk score 0.77) occurred on 2016-11-17. The card exhibits mixed online and in-person transactions spanning multiple months with varying risk scores, but no clear card testing or multi-channel takeover pattern. Historical precedent search and device neighbor queries were unavailable due to query errors.",
+        "summary": "Card transaction history for C03042-K1 shows the flagged online transaction (3464869) on 2016-11-17 for $599.94 with a risk score of 0.77. The account exhibits frequent mixed-channel activity (both online and in-person transactions across multiple billing regions/addr1 codes) without evidence of a traditional card-testing sequence (three or more small authorizations under $5). Historical precedent and device neighbor searches were unavailable due to query execution errors.",
         "written_to_graph": true,
         "graph_case_id": "HHG-015"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "step-up authentication due to moderate risk score of 0.77 on an online transaction without confirmed fraud pattern",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "step-up authentication due to moderate risk score of 0.77 on an online transaction without confirmed fraud pattern",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.043
+    "latency_s": 13.967
 }

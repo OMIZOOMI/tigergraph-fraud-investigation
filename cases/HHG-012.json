@@ -1,9 +1,9 @@
 {
     "case_id": "HHG-012",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.55,
+        "status": "escalated",
+        "verdict": "uncertain",
+        "fraud_probability": 0.45,
         "pattern": "out-of-region use",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C05876-K2 has a history of in-person purchases in regions 123, 330, and 264. The flagged transaction (3553342) is for $30.91 in billing region 494.0, which is outside the cardholder's usual home regions while normal history consists entirely of in-person activity.",
+                "claim": "Card C05876-K2 has a historical transaction pattern consisting entirely of in_person purchases (addr1: 123, 330, 264) with low risk scores (0.02 - 0.05). The flagged transaction 3553342 is for $30.91 in billing region 494.0. No matching closed cases or device neighbor info could be retrieved due to query endpoints being disabled or parameter format mismatches.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card C05876-K2 has a history of in-person purchases in regions 123, 330, and 264. The flagged transaction (3553342) is for $30.91 in billing region 494.0, which is outside the cardholder's usual home regions while normal history consists entirely of in-person activity.",
+        "summary": "Card C05876-K2 has a historical transaction pattern consisting entirely of in_person purchases (addr1: 123, 330, 264) with low risk scores (0.02 - 0.05). The flagged transaction 3553342 is for $30.91 in billing region 494.0. No matching closed cases or device neighbor info could be retrieved due to query endpoints being disabled or parameter format mismatches.",
         "written_to_graph": true,
         "graph_case_id": "HHG-012"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Contact the customer to verify the out-of-region in-person transaction.",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Contact the customer to verify the out-of-region in-person transaction.",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -56,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 15.036
+    "latency_s": 24.613
 }

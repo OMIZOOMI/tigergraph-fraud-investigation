@@ -3,7 +3,7 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
+        "fraud_probability": 0.8,
         "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C13171 reported an unauthorized $55.68 purchase on card C13171-K2 (transaction 3558054). Card history shows a prior online transaction (72.44 on 2016-09-28), but transaction 3558054 itself is not listed in the retrieved card transaction history. No historical precedent or device neighbors could be retrieved due to query execution errors.",
+                "claim": "Customer C13171 reported an unauthorized purchase of $55.68 (transaction ID 3558054). Card history for C13171-K2 shows only one prior online transaction (ID 3308150) for $72.44 on 2016-09-28. No extensive card-testing or complex multi-channel patterns are visible in the sparse history.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C13171 reported an unauthorized $55.68 purchase on card C13171-K2 (transaction 3558054). Card history shows a prior online transaction (72.44 on 2016-09-28), but transaction 3558054 itself is not listed in the retrieved card transaction history. No historical precedent or device neighbors could be retrieved due to query execution errors.",
+        "summary": "Customer C13171 reported an unauthorized purchase of $55.68 (transaction ID 3558054). Card history for C13171-K2 shows only one prior online transaction (ID 3308150) for $72.44 on 2016-09-28. No extensive card-testing or complex multi-channel patterns are visible in the sparse history.",
         "written_to_graph": true,
         "graph_case_id": "HHG-008"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "block card to prevent further unauthorized transactions given the customer's direct report and high fraud probability",
-                "route": "auto",
+                "action": "BLOCK_CARD",
+                "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "block card to prevent further unauthorized transactions given the customer's direct report and high fraud probability",
-                "route": "auto",
+                "action": "BLOCK_CARD",
+                "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 13.97
+    "latency_s": 15.227
 }

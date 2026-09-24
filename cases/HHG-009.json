@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online channel, timestamp 2016-12-28 12:10:53) as unauthorized. Card history shows extensive online activity with frequent bursts of small-to-moderate transactions (e.g., Dec 30-31 with multiple online transactions around $20 and ~$50). No historical precedent or device neighbors could be retrieved due to query failures.",
+                "claim": "Customer C08299 reported transaction 3581141 ($30.02, online, addr1=203) on 2016-12-28 as unauthorized. Card history for C08299-K1 reveals frequent online card-not-present bursts, including multiple small-amount sequences (e.g., $20.01-$20.08 on Dec 30, and sequences of ~$50 on Dec 31), but transaction 3581141 itself is an isolated online purchase of $30.02.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online channel, timestamp 2016-12-28 12:10:53) as unauthorized. Card history shows extensive online activity with frequent bursts of small-to-moderate transactions (e.g., Dec 30-31 with multiple online transactions around $20 and ~$50). No historical precedent or device neighbors could be retrieved due to query failures.",
+        "summary": "Customer C08299 reported transaction 3581141 ($30.02, online, addr1=203) on 2016-12-28 as unauthorized. Card history for C08299-K1 reveals frequent online card-not-present bursts, including multiple small-amount sequences (e.g., $20.01-$20.08 on Dec 30, and sequences of ~$50 on Dec 31), but transaction 3581141 itself is an isolated online purchase of $30.02.",
         "written_to_graph": true,
         "graph_case_id": "HHG-009"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Block card and issue replacement due to confirmed unauthorized customer-reported CNP fraud.",
+                "action": "BLOCK_CARD",
                 "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Block card and issue replacement due to confirmed unauthorized customer-reported CNP fraud.",
+                "action": "BLOCK_CARD",
                 "route": "L1",
                 "reason": "Based on the investigator assessment."
             }
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.44
+    "latency_s": 14.819
 }

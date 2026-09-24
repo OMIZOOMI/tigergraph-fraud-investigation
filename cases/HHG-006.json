@@ -3,7 +3,7 @@
     "case": {
         "status": "escalated",
         "verdict": "uncertain",
-        "fraud_probability": 0.3,
+        "fraud_probability": 0.2,
         "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1's transaction history shows a high volume of in_person transactions across multiple locations and zip codes up to September 2016, but no explicit online/CNP activity or transaction vertex 3476682 found directly in the history retrieval. Precedent lookup failed due to a disabled query endpoint.",
+                "claim": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1 history shows extensive in-person activity (channel: in_person, product_cd: W) across various addresses from August to September 2016, with no online/CNP transactions or matching device neighbors in the retrieved graph data.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1's transaction history shows a high volume of in_person transactions across multiple locations and zip codes up to September 2016, but no explicit online/CNP activity or transaction vertex 3476682 found directly in the history retrieval. Precedent lookup failed due to a disabled query endpoint.",
+        "summary": "Customer C07297 reported an unrecognized $482.12 purchase (txn 3476682). Card C07297-K1 history shows extensive in-person activity (channel: in_person, product_cd: W) across various addresses from August to September 2016, with no online/CNP transactions or matching device neighbors in the retrieved graph data.",
         "written_to_graph": true,
         "graph_case_id": "HHG-006"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Contact the customer to verify the unrecognized $482.12 transaction and assess whether card replacement is necessary.",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Contact the customer to verify the unrecognized $482.12 transaction and assess whether card replacement is necessary.",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -56,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 9.87
+    "latency_s": 11.887
 }

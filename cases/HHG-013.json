@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.78,
-        "pattern": "account takeover",
+        "fraud_probability": 0.76,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3526826"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Transaction 3526826 ($35.66, online channel) is flagged with an initial risk score of 0.76. Review of the card history for C07671-K2 shows all prior transactions (ranging from $43.90 to $204.93) occurred via the 'in_person' channel at location addr1: '264', with no prior online transactions recorded. The historical closed-case query endpoint was unavailable, but the sudden shift from exclusively in-person card-present usage to an online transaction represents mixed-channel activity inconsistent with historical cardholder behavior.",
+                "claim": "Card C07671-K2 shows a history of exclusively in-person transactions prior to the flagged online transaction 3526826 ($35.66, online, risk score 0.76). This sudden introduction of an online channel represents a deviation from established cardholder behavior, matching the characteristics of card-not-present fraud.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Transaction 3526826 ($35.66, online channel) is flagged with an initial risk score of 0.76. Review of the card history for C07671-K2 shows all prior transactions (ranging from $43.90 to $204.93) occurred via the 'in_person' channel at location addr1: '264', with no prior online transactions recorded. The historical closed-case query endpoint was unavailable, but the sudden shift from exclusively in-person card-present usage to an online transaction represents mixed-channel activity inconsistent with historical cardholder behavior.",
+        "summary": "Card C07671-K2 shows a history of exclusively in-person transactions prior to the flagged online transaction 3526826 ($35.66, online, risk score 0.76). This sudden introduction of an online channel represents a deviation from established cardholder behavior, matching the characteristics of card-not-present fraud.",
         "written_to_graph": true,
         "graph_case_id": "HHG-013"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Contact the customer to verify the unexpected online transaction given the history of exclusively in-person card usage.",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Contact the customer to verify the unexpected online transaction given the history of exclusively in-person card usage.",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 9.84
+    "latency_s": 11.717
 }

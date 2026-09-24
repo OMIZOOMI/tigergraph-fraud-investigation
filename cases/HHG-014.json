@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-014",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.45,
-        "pattern": "card-not-present fraud from a new device",
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.15,
+        "pattern": "undocumented/none",
         "pattern_description": "",
         "affected_txn_ids": [
             "3478561"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Transaction 3478561 on card C13487-K1 is an online purchase of $74.96 made on 2016-11-22 at 16:11:00 with a risk score of 0.05. Card history shows a mix of in-person purchases and occasional online transactions (e.g., txn 3460634, 3489320). The trigger context mentions analyst suspicion regarding cards showing purchases from an unusual device profile across the month.",
+                "claim": "Card transaction history for C13487-K1 shows routine in-person purchases primarily in billing regions 191 and 272, punctuated by occasional online transactions such as txn 3478561 ($74.96) on 2016-11-22 and txn 3489320 ($252.28) on 2016-11-26. There is no evidence of card testing (small authorizations under $5). Additional graph queries for device neighbors and similar cases were unavailable due to endpoint/parameter errors.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Transaction 3478561 on card C13487-K1 is an online purchase of $74.96 made on 2016-11-22 at 16:11:00 with a risk score of 0.05. Card history shows a mix of in-person purchases and occasional online transactions (e.g., txn 3460634, 3489320). The trigger context mentions analyst suspicion regarding cards showing purchases from an unusual device profile across the month.",
+        "summary": "Card transaction history for C13487-K1 shows routine in-person purchases primarily in billing regions 191 and 272, punctuated by occasional online transactions such as txn 3478561 ($74.96) on 2016-11-22 and txn 3489320 ($252.28) on 2016-11-26. There is no evidence of card testing (small authorizations under $5). Additional graph queries for device neighbors and similar cases were unavailable due to endpoint/parameter errors.",
         "written_to_graph": true,
         "graph_case_id": "HHG-014"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Contact the customer to verify the recent online purchases made from the unusual device profile.",
-                "route": "L1",
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Contact the customer to verify the recent online purchases made from the unusual device profile.",
-                "route": "L1",
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 17.953
+    "latency_s": 14.481
 }

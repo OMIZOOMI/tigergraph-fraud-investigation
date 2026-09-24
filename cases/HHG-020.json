@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-020",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.45,
-        "pattern": "card-not-present fraud",
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.65,
+        "pattern": "account takeover",
         "pattern_description": "",
         "affected_txn_ids": [
             "3509359"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C12265-K2 shows consistent in-person activity in addr1 region '264' (e.g., transactions on 2016-10-02, 2016-12-10, and 2016-12-11). The flagged transaction 3509359 is an online purchase of $125.08 occurring on 2016-12-03, which represents a sudden channel shift to online while normal local in-person history continues around the same period. Historical precedent queries are unavailable due to query endpoint restrictions.",
+                "claim": "Card transaction history for C12265-K2 shows only in-person transactions (on 2016-10-02, 2016-12-10, and 2016-12-11) located in addr1 '264'. The trigger context references an online transaction ($125.08) at 0.52 risk score, representing a sudden channel shift from established in-person usage.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C12265-K2 shows consistent in-person activity in addr1 region '264' (e.g., transactions on 2016-10-02, 2016-12-10, and 2016-12-11). The flagged transaction 3509359 is an online purchase of $125.08 occurring on 2016-12-03, which represents a sudden channel shift to online while normal local in-person history continues around the same period. Historical precedent queries are unavailable due to query endpoint restrictions.",
+        "summary": "Card transaction history for C12265-K2 shows only in-person transactions (on 2016-10-02, 2016-12-10, and 2016-12-11) located in addr1 '264'. The trigger context references an online transaction ($125.08) at 0.52 risk score, representing a sudden channel shift from established in-person usage.",
         "written_to_graph": true,
         "graph_case_id": "HHG-020"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Contact the customer to verify the online transaction given the sudden channel shift from in-person history.",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Contact the customer to verify the online transaction given the sudden channel shift from in-person history.",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -56,7 +56,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 12.638
+    "latency_s": 617.449
 }

@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "card_testing",
+        "fraud_probability": 0.65,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3534820"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C09988 reported an unrecognized online purchase of $59.67 on 2016-12-11 (txn_vertex 3534820). Review of card C09988-K1's transaction history shows a continuous pattern of online purchases spanning from September to December 2016, with multiple small-dollar authorizations (e.g., $6.98, $8.93, $8.92, $8.86, $8.29, $8.56, $9.16) often preceding larger charges, consistent with card testing and card-not-present fraud patterns. Device and precedent queries could not be retrieved due to query endpoint restrictions.",
+                "claim": "Customer C09988 reported an unauthorized online purchase of $59.67 on 2016-12-11 (txn 3534820) with a risk score of 0.37. The card history for C09988-K1 shows continuous online transactions spanning from September to December 2016, with multiple online purchases occurring around the disputed date without clear evidence of a card-testing burst or out-of-region card-present activity.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C09988 reported an unrecognized online purchase of $59.67 on 2016-12-11 (txn_vertex 3534820). Review of card C09988-K1's transaction history shows a continuous pattern of online purchases spanning from September to December 2016, with multiple small-dollar authorizations (e.g., $6.98, $8.93, $8.92, $8.86, $8.29, $8.56, $9.16) often preceding larger charges, consistent with card testing and card-not-present fraud patterns. Device and precedent queries could not be retrieved due to query endpoint restrictions.",
+        "summary": "Customer C09988 reported an unauthorized online purchase of $59.67 on 2016-12-11 (txn 3534820) with a risk score of 0.37. The card history for C09988-K1 shows continuous online transactions spanning from September to December 2016, with multiple online purchases occurring around the disputed date without clear evidence of a card-testing burst or out-of-region card-present activity.",
         "written_to_graph": true,
         "graph_case_id": "HHG-016"
     },
@@ -33,15 +33,15 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Block card C09988-K1 due to confirmed unauthorized customer-reported transaction and evidence of card-testing pattern.",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Block card C09988-K1 due to confirmed unauthorized customer-reported transaction and evidence of card-testing pattern.",
-                "route": "L1",
+                "action": "VERIFY_WITH_CUSTOMER",
+                "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 14.686
+    "latency_s": 29.539
 }

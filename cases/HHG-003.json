@@ -4,7 +4,7 @@
         "status": "closed_legitimate",
         "verdict": "legitimate",
         "fraud_probability": 0.15,
-        "pattern": "undocumented/none",
+        "pattern": "none",
         "pattern_description": "",
         "affected_txn_ids": [
             "3530164"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08623 reported an unauthorized $49.00 purchase (txn ref 3530164, matching historical in_person amounts around $48.95-$48.01). Card history for C08623-K2 shows all transactions occurred via the 'in_person' channel across different address regions (addr1: 269, 225, 123, 448, 204), with consistent physical card usage over months without card-testing patterns or CNP indicators.",
+                "claim": "Customer C08623 reported a fraudulent $49.00 purchase (txn 3530164, though card history shows txn 3534946 for $116.97 on 2016-12-11 and several in-person transactions in October 2016 in different billing regions/addr1 codes such as 269, 225, 123, 448, and 204). All historical transactions are 'in_person' channel with product code W. There is no clear pattern of card testing, CNP activity, or new device indicators in the provided history.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C08623 reported an unauthorized $49.00 purchase (txn ref 3530164, matching historical in_person amounts around $48.95-$48.01). Card history for C08623-K2 shows all transactions occurred via the 'in_person' channel across different address regions (addr1: 269, 225, 123, 448, 204), with consistent physical card usage over months without card-testing patterns or CNP indicators.",
+        "summary": "Customer C08623 reported a fraudulent $49.00 purchase (txn 3530164, though card history shows txn 3534946 for $116.97 on 2016-12-11 and several in-person transactions in October 2016 in different billing regions/addr1 codes such as 269, 225, 123, 448, and 204). All historical transactions are 'in_person' channel with product code W. There is no clear pattern of card testing, CNP activity, or new device indicators in the provided history.",
         "written_to_graph": true,
         "graph_case_id": "HHG-003"
     },
@@ -33,14 +33,14 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "Contact the customer to verify transaction 3530164 and assess if a provisional credit or dispute filing is needed, given the low fraud probability and established in-person usage history.",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
         ],
         "final": [
             {
-                "action": "Contact the customer to verify transaction 3530164 and assess if a provisional credit or dispute filing is needed, given the low fraud probability and established in-person usage history.",
+                "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
                 "reason": "Based on the investigator assessment."
             }
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 10.136
+    "latency_s": 10.369
 }

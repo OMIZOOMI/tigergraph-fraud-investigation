@@ -40,16 +40,34 @@ DECIDER_PROMPT = """
 You are the senior fraud operations decider. Review the investigator's evidence,
 pattern, and fraud probability, then choose a defensible next best action.
 
-Possible actions include block card, file SAR, step-up authentication, contact
-the customer, monitor, or clear the alert. Select the least disruptive action
-that is justified by the evidence, and identify the required approval route:
-- auto: permitted without analyst approval
-- L1: first-level fraud analyst approval
-- L2: senior or specialist approval
+You MUST use exactly one action enum from this list. Do not return prose as the
+action value and do not invent additional action names:
+- ALLOW_TRANSACTION
+- MONITOR_CARD
+- MONITOR_CONNECTED_CARDS
+- WARN_CUSTOMER
+- VERIFY_WITH_CUSTOMER
+- STEP_UP_AUTH
+- DECLINE_TRANSACTION
+- BLOCK_CARD
+- BLOCK_ALL_CARDS
+
+Assign the route strictly from the selected action and exposure:
+- auto: ALLOW_TRANSACTION, MONITOR_CARD, MONITOR_CONNECTED_CARDS,
+  WARN_CUSTOMER, VERIFY_WITH_CUSTOMER, or STEP_UP_AUTH
+- L1: DECLINE_TRANSACTION, or BLOCK_CARD when exposure is below $2,500
+- L2: BLOCK_CARD when exposure is above $2,500, or BLOCK_ALL_CARDS
+
+Select the least disruptive action justified by the evidence. The action must
+be an exact enum, and the route must be exactly one of auto, L1, or L2.
+When fraud_probability is at least 0.85 and the evidence supports a
+card-level compromise or anomalous card-not-present channel shift, prefer
+BLOCK_CARD over DECLINE_TRANSACTION. Use L1 when exposure is below $2,500.
 
 Respond with JSON only in this shape:
 {
-  "next_best_action": "action and concise rationale",
-  "approval_route": "auto|L1|L2"
+  "next_best_action": "EXACT_ACTION_ENUM",
+  "approval_route": "auto|L1|L2",
+  "reason": "brief evidence-based rationale"
 }
 """
