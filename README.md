@@ -134,12 +134,12 @@ Feature work is developed in isolation, validated against the benchmark, merged
 into `main`, and then followed by case regeneration when output behavior changes.
 
 ```mermaid
-%%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "padding": 8}, "themeVariables": {"fontSize": "13px"}}}%%
+%%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "padding": 18}, "themeVariables": {"fontSize": "13px"}}}%%
 flowchart TB
     subgraph P1["Phase 1: Feature Branching"]
         direction LR
-        branch([Create feature branch])
-        implement[Implement LangGraph / MCP logic]
+        branch([Create branch])
+        implement[Implement LangGraph / MCP]
         branch --> implement
     end
 
@@ -153,8 +153,8 @@ flowchart TB
     subgraph P3["Phase 3: Batch Regeneration"]
         direction LR
         clear[Clear stale cases]
-        batch[Execute all 20 benchmarks]
-        outputs[(Generated case JSON)]
+        batch[Run 20 benchmarks]
+        outputs[(Generated cases)]
         schemaCheck{Validate schema?}
         clear --> batch --> outputs --> schemaCheck
     end
