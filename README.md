@@ -110,10 +110,10 @@ flowchart TB
     writer --> tigerGraph
     writer --> outputs
 
-    classDef input fill:#e8f1ff,stroke:#3264a8,stroke-width:2px
-    classDef process fill:#eef8ee,stroke:#3f7f4f,stroke-width:2px
-    classDef evidence fill:#fff5df,stroke:#b77b19,stroke-width:2px
-    classDef output fill:#f3eaff,stroke:#7548a8,stroke-width:2px
+    classDef input fill:#e8f1ff,stroke:#3264a8,stroke-width:2px,color:#172033
+    classDef process fill:#eef8ee,stroke:#3f7f4f,stroke-width:2px,color:#172033
+    classDef evidence fill:#fff5df,stroke:#b77b19,stroke-width:2px,color:#172033
+    classDef output fill:#f3eaff,stroke:#7548a8,stroke-width:2px,color:#172033
     class casePack,transactions,identity,schema input
     class loader,runner,investigator,decider,evidenceLoop,simulate,writer process
     class mcp,tigerGraph,history,fallback evidence
