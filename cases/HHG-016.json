@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C09988 reported an unauthorized online transaction of $59.67 (txn 3534820) on 2016-12-11. Card history for C09988-K1 shows continuous online purchase activity spanning September to December 2016, with transaction amounts ranging from $6.98 to $134.97, and no clear card-testing sequence or anomaly specifically distinguishing txn 3534820 from other regular online card-not-present transactions.",
+                "claim": "Customer C09988 reported unauthorized transaction 3534820 ($59.67, online, occurred on 2016-12-11 22:39:08). Card C09988-K1 has an extensive history of online transactions without any indications of card testing or unusual geographic anomalies. No prior local similar cases found.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,7 +25,7 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C09988 reported an unauthorized online transaction of $59.67 (txn 3534820) on 2016-12-11. Card history for C09988-K1 shows continuous online purchase activity spanning September to December 2016, with transaction amounts ranging from $6.98 to $134.97, and no clear card-testing sequence or anomaly specifically distinguishing txn 3534820 from other regular online card-not-present transactions.",
+        "summary": "Customer C09988 reported unauthorized transaction 3534820 ($59.67, online, occurred on 2016-12-11 22:39:08). Card C09988-K1 has an extensive history of online transactions without any indications of card testing or unusual geographic anomalies. No prior local similar cases found.",
         "written_to_graph": true,
         "graph_case_id": "HHG-016"
     },
@@ -41,17 +41,17 @@
             {
                 "action": "VERIFY_WITH_CUSTOMER",
                 "route": "auto",
-                "reason": "Customer reported unauthorized online transaction, but low fraud probability (0.35) and continuous CNP activity suggest verification."
+                "reason": "Customer reported an unauthorized $59.67 online purchase on card C09988-K1, but the fraud probability is moderate (0.35) and the card has a clean history. Verifying transaction authenticity with the customer is the least disruptive appropriate action."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer confirmed they did not make the purchase and still possess the physical card, indicating card compromise; exposure is below $2,500."
+                "reason": "Customer confirmed they did not make the purchase and still possess the card, confirming card compromise. Since exposure is below $2,500, BLOCK_CARD on route L1 is required."
             }
         ],
-        "what_changed": "Customer validation response confirmed unauthorized usage while retaining possession of the card, escalating the action from verification to card blocking."
+        "what_changed": "Customer validation response confirmed unauthorized activity and possession of the physical card, escalating the finding to confirmed compromise and necessitating card blocking."
     },
     "sar": {
         "file": false,
@@ -62,7 +62,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 14.293
+    "latency_s": 13.552
 }

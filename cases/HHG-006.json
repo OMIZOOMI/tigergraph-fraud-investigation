@@ -1,21 +1,19 @@
 {
     "case_id": "HHG-006",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.35,
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.1,
         "pattern": "undocumented/none",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3476682"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3476682",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C07297 reported an unrecognized $482.12 purchase for transaction 3476682 on card C07297-K1. The card's transaction history shows extensive in-person (card-present) activity with multiple locations/addresses (e.g., addr1: 485, 205, 191, 264, etc.) up to September 2016, but no direct card-not-present indicators or device data were retrievable via the graph tools due to query execution issues.",
+                "claim": "Customer C07297 reported unauthorized purchase 3476682 for $482.12. Card C07297-K1 history shows multiple in-person transactions spanning August and September 2016 across various billing regions (addr1 values), but no matching transaction vertex 3476682 appears in the retrieved card history or local case matches.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,33 +23,27 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Customer C07297 reported an unrecognized $482.12 purchase for transaction 3476682 on card C07297-K1. The card's transaction history shows extensive in-person (card-present) activity with multiple locations/addresses (e.g., addr1: 485, 205, 191, 264, etc.) up to September 2016, but no direct card-not-present indicators or device data were retrievable via the graph tools due to query execution issues.",
+        "summary": "Customer C07297 reported unauthorized purchase 3476682 for $482.12. Card C07297-K1 history shows multiple in-person transactions spanning August and September 2016 across various billing regions (addr1 values), but no matching transaction vertex 3476682 appears in the retrieved card history or local case matches.",
         "written_to_graph": true,
         "graph_case_id": "HHG-006"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
+                "action": "ALLOW_TRANSACTION",
                 "route": "auto",
-                "reason": "Customer reported an unrecognized transaction, but historical context and low fraud probability suggest verification is needed before blocking."
+                "reason": "The customer reported an unauthorized purchase, but the transaction vertex 3476682 does not exist in the graph or card history and fraud probability is very low (0.1), indicating an error or false report."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Customer confirmed they did not make the purchase and still possesses the physical card, confirming unauthorized card-not-present usage and compromise."
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
+                "reason": "The customer reported an unauthorized purchase, but the transaction vertex 3476682 does not exist in the graph or card history and fraud probability is very low (0.1), indicating an error or false report."
             }
         ],
-        "what_changed": "Customer validation confirmed the unauthorized purchase and card possession, escalating the recommendation from customer verification to blocking the card."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -62,7 +54,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 18.67
+    "latency_s": 7.592
 }

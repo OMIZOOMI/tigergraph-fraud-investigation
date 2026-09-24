@@ -4,8 +4,10 @@ import asyncio
 import json
 import os
 import shlex
+from pathlib import Path
 from typing import Any, TypedDict
 
+import pandas as pd
 import pyTigerGraph as tg
 from dotenv import find_dotenv, load_dotenv
 from langchain_core.tools import tool
@@ -138,6 +140,37 @@ def tool_find_similar_cases(pattern: str, min_exposure: float = 0.0) -> str:
     return _run_mcp_query(
         "find_similar_cases",
         {"in_pattern": pattern, "min_exposure": min_exposure},
+    )
+
+
+@tool
+def tool_get_local_similar_cases(card_id: str, customer_id: str) -> str:
+    """Find prior closed cases sharing the current card or customer locally."""
+    history_path = Path(__file__).resolve().parents[1] / "data" / "closed_cases_history.csv"
+    history = pd.read_csv(history_path, usecols=["case_id", "customer_id", "card_id", "outcome", "analyst_notes"])
+    card_id = str(card_id or "").strip()
+    customer_id = str(customer_id or "").strip()
+    matches = pd.Series(False, index=history.index)
+    if card_id:
+        matches |= history["card_id"].fillna("").astype(str).eq(card_id)
+    if customer_id:
+        matches |= history["customer_id"].fillna("").astype(str).eq(customer_id)
+
+    matched = history.loc[matches].drop_duplicates(subset=["case_id"])
+    results = [
+        {
+            "case_id": str(row["case_id"]),
+            "outcome": str(row["outcome"]),
+            "summary": str(row["analyst_notes"]),
+        }
+        for _, row in matched.iterrows()
+    ]
+    return json.dumps(
+        {
+            "similar_prior_cases": [item["case_id"] for item in results],
+            "matches": results,
+        },
+        default=str,
     )
 
 

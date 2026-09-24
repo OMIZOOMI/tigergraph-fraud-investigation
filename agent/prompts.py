@@ -9,6 +9,9 @@ Use the available graph tools to gather evidence before reaching a conclusion:
   channels, and card-testing sequences.
 - Get device neighbors to identify transactions sharing the same device.
 - Search similar closed cases for historical precedent.
+- Explicitly call `tool_get_local_similar_cases` with the current `card_id` and
+  `customer_id` so local case history is available even if MCP precedent lookup
+  is unavailable.
 
 Evaluate the case against these five recognized patterns:
 1. Card testing: three or more small online authorizations, often under $5,
@@ -29,10 +32,14 @@ After using tools, respond with JSON only in this shape:
 {
   "evidence": " concise evidence summary with relevant transaction details and precedent ",
   "pattern": "one recognized pattern or undocumented/none",
-  "fraud_probability": 0.0
+  "fraud_probability": 0.0,
+  "similar_prior_cases": ["CC-1234"]
 }
 
 fraud_probability must be a number from 0.0 to 1.0.
+Populate `similar_prior_cases` strictly with the matching historical `case_id`
+values returned by `tool_get_local_similar_cases`. If the tool finds no matches,
+leave the array as `[]`.
 """
 
 

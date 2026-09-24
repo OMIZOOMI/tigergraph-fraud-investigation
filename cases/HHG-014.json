@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-014",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.35,
-        "pattern": "card-not-present fraud",
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.75,
+        "pattern": "Card-not-present fraud from a new device",
         "pattern_description": "",
         "affected_txn_ids": [
             "3478561"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C13487-K1 reveals routine in-person purchases (product code W) interspersed with occasional online purchases (product code C, R) such as transaction 3478561 ($74.96 on 2016-11-22), transaction 3460634 ($112.37 on 2016-11-15), and transaction 3489320 ($252.28 on 2016-11-26). There is no clear card-testing sequence or anomalous velocity of small amounts. Device and case lookup tools failed or were unavailable.",
+                "claim": "Card C13487-K1 shows regular in-person transactions and occasional online purchases (e.g., txn 3478561 for $74.96 on 2016-11-22 and txn 3489320 for $252.28 on 2016-11-26). The analyst notes that several cards this month exhibit purchases from the same unusual device profile. Local and global historical lookups yielded no matching prior closed cases.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -25,27 +25,33 @@
             }
         ],
         "similar_prior_cases": [],
-        "summary": "Card transaction history for C13487-K1 reveals routine in-person purchases (product code W) interspersed with occasional online purchases (product code C, R) such as transaction 3478561 ($74.96 on 2016-11-22), transaction 3460634 ($112.37 on 2016-11-15), and transaction 3489320 ($252.28 on 2016-11-26). There is no clear card-testing sequence or anomalous velocity of small amounts. Device and case lookup tools failed or were unavailable.",
+        "summary": "Card C13487-K1 shows regular in-person transactions and occasional online purchases (e.g., txn 3478561 for $74.96 on 2016-11-22 and txn 3489320 for $252.28 on 2016-11-26). The analyst notes that several cards this month exhibit purchases from the same unusual device profile. Local and global historical lookups yielded no matching prior closed cases.",
         "written_to_graph": true,
         "graph_case_id": "HHG-014"
     },
-    "evidence_requests": [],
+    "evidence_requests": [
+        {
+            "type": "customer_validation",
+            "asked_after_step": 1,
+            "assumed_response": "Customer states they did not make these purchases and still has the card."
+        }
+    ],
     "next_best_actions": {
         "initial": [
             {
-                "action": "MONITOR_CARD",
+                "action": "STEP_UP_AUTH",
                 "route": "auto",
-                "reason": "Low fraud probability (0.35) with routine mixed in-person and online purchases, warranting continued monitoring rather than interruption."
+                "reason": "Moderate fraud probability with a new device profile for online transactions warrants step-up authentication before blocking."
             }
         ],
         "final": [
             {
-                "action": "MONITOR_CARD",
-                "route": "auto",
-                "reason": "Low fraud probability (0.35) with routine mixed in-person and online purchases, warranting continued monitoring rather than interruption."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer confirmed they did not make the purchases and still has the card, indicating card compromise via an unusual device profile."
             }
         ],
-        "what_changed": "nothing"
+        "what_changed": "Customer validation confirmed unauthorized activity and physical card possession, escalating the response from step-up authentication to card blocking."
     },
     "sar": {
         "file": false,
@@ -56,7 +62,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 3,
+    "tool_calls": 4,
     "tokens": 0,
-    "latency_s": 14.696
+    "latency_s": 20.539
 }

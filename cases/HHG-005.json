@@ -1,10 +1,10 @@
 {
     "case_id": "HHG-005",
     "case": {
-        "status": "escalated",
-        "verdict": "uncertain",
-        "fraud_probability": 0.25,
-        "pattern": "card-not-present fraud",
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.85,
+        "pattern": "account takeover",
         "pattern_description": "",
         "affected_txn_ids": [
             "3523199"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card transaction history for C02923-K1 shows regular in-person purchases with occasional online transactions. Transaction 3523199 on 2016-12-07 is an online purchase of $100.07 with a risk score of 0.54. No clear card-testing sequence or major anomalies are present beyond standard online activity.",
+                "claim": "Transaction 3523199 ($100.07, online) at 2016-12-07 21:38:37 on card C02923-K1 received a risk score of 0.54. Historical local cases for this customer and card show multiple confirmed fraud cases (CC-2400, CC-2717, CC-2857) involving mixed-channel activity and unauthorized transactions, indicating a pattern of account takeover.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -24,8 +24,12 @@
                 ]
             }
         ],
-        "similar_prior_cases": [],
-        "summary": "Card transaction history for C02923-K1 shows regular in-person purchases with occasional online transactions. Transaction 3523199 on 2016-12-07 is an online purchase of $100.07 with a risk score of 0.54. No clear card-testing sequence or major anomalies are present beyond standard online activity.",
+        "similar_prior_cases": [
+            "CC-2400",
+            "CC-2717",
+            "CC-2857"
+        ],
+        "summary": "Transaction 3523199 ($100.07, online) at 2016-12-07 21:38:37 on card C02923-K1 received a risk score of 0.54. Historical local cases for this customer and card show multiple confirmed fraud cases (CC-2400, CC-2717, CC-2857) involving mixed-channel activity and unauthorized transactions, indicating a pattern of account takeover.",
         "written_to_graph": true,
         "graph_case_id": "HHG-005"
     },
@@ -33,16 +37,16 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "ALLOW_TRANSACTION",
-                "route": "auto",
-                "reason": "Fraud probability is low (0.25) and the transaction pattern is consistent with occasional online purchases for this customer."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Fraud probability is 0.85 with confirmed historical fraud cases indicating account takeover, supporting card block with exposure under $2,500."
             }
         ],
         "final": [
             {
-                "action": "ALLOW_TRANSACTION",
-                "route": "auto",
-                "reason": "Fraud probability is low (0.25) and the transaction pattern is consistent with occasional online purchases for this customer."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Fraud probability is 0.85 with confirmed historical fraud cases indicating account takeover, supporting card block with exposure under $2,500."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +62,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 13.773
+    "latency_s": 9.87
 }

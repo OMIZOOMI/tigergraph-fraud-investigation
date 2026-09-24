@@ -4,7 +4,7 @@
         "status": "closed_fraud",
         "verdict": "fraud",
         "fraud_probability": 0.85,
-        "pattern": "card_not_present",
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
         "affected_txn_ids": [
             "3583227"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C08106 reported disputed transaction 3583227 for $128.33, occurring on 2016-12-29 01:53:54 via the online channel. Transaction history for card C08106-K1 reveals frequent, recurring card-not-present online purchases with varying risk scores and amounts across December 2016.",
+                "claim": "Customer C08106 reported unrecognized online purchase txn 3583227 ($128.33, risk_score 0.34) on 2016-12-29. Card history shows continuous online transactions across multiple amounts and channels, matching card-not-present fraud characteristics. Local precedent includes confirmed fraud cases on the same card/customer (CC-1736, CC-2121, CC-3778).",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -24,8 +24,13 @@
                 ]
             }
         ],
-        "similar_prior_cases": [],
-        "summary": "Customer C08106 reported disputed transaction 3583227 for $128.33, occurring on 2016-12-29 01:53:54 via the online channel. Transaction history for card C08106-K1 reveals frequent, recurring card-not-present online purchases with varying risk scores and amounts across December 2016.",
+        "similar_prior_cases": [
+            "CC-1736",
+            "CC-2121",
+            "CC-3778",
+            "CC-0696"
+        ],
+        "summary": "Customer C08106 reported unrecognized online purchase txn 3583227 ($128.33, risk_score 0.34) on 2016-12-29. Card history shows continuous online transactions across multiple amounts and channels, matching card-not-present fraud characteristics. Local precedent includes confirmed fraud cases on the same card/customer (CC-1736, CC-2121, CC-3778).",
         "written_to_graph": true,
         "graph_case_id": "HHG-004"
     },
@@ -35,14 +40,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized transaction of $128.33 (below $2,500 threshold) with fraud probability 0.85, supporting card-level compromise."
+                "reason": "Customer reported unauthorized online purchase under $2,500 with a fraud probability of 0.85 and history of compromised card-not-present activity."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized transaction of $128.33 (below $2,500 threshold) with fraud probability 0.85, supporting card-level compromise."
+                "reason": "Customer reported unauthorized online purchase under $2,500 with a fraud probability of 0.85 and history of compromised card-not-present activity."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +63,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 15.813
+    "latency_s": 9.827
 }

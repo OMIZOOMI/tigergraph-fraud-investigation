@@ -3,8 +3,8 @@
     "case": {
         "status": "closed_fraud",
         "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "card-not-present fraud",
+        "fraud_probability": 0.99,
+        "pattern": "card-not-present fraud from a new device",
         "pattern_description": "",
         "affected_txn_ids": [
             "3558054"
@@ -15,7 +15,7 @@
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Customer C13171 reported an unauthorized $55.68 online purchase (transaction 3558054). Card C13171-K2 history shows only one prior historical online transaction of $72.44 on 2016-09-28. Historical precedent search was unavailable due to an endpoint error.",
+                "claim": "Customer C13171 reported an unrecognized online purchase of $55.68 (txn 3558054) on card C13171-K2. Local case history reveals extensive prior confirmed fraud cases on this same card and customer (e.g., CC-0056 through CC-5010), demonstrating an ongoing pattern of card-not-present fraud from new or unrecognized devices.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -24,8 +24,28 @@
                 ]
             }
         ],
-        "similar_prior_cases": [],
-        "summary": "Customer C13171 reported an unauthorized $55.68 online purchase (transaction 3558054). Card C13171-K2 history shows only one prior historical online transaction of $72.44 on 2016-09-28. Historical precedent search was unavailable due to an endpoint error.",
+        "similar_prior_cases": [
+            "CC-0056",
+            "CC-0467",
+            "CC-0772",
+            "CC-1293",
+            "CC-1715",
+            "CC-1925",
+            "CC-2059",
+            "CC-2244",
+            "CC-2454",
+            "CC-2716",
+            "CC-3079",
+            "CC-3422",
+            "CC-3566",
+            "CC-3728",
+            "CC-3928",
+            "CC-4163",
+            "CC-4485",
+            "CC-4819",
+            "CC-5010"
+        ],
+        "summary": "Customer C13171 reported an unrecognized online purchase of $55.68 (txn 3558054) on card C13171-K2. Local case history reveals extensive prior confirmed fraud cases on this same card and customer (e.g., CC-0056 through CC-5010), demonstrating an ongoing pattern of card-not-present fraud from new or unrecognized devices.",
         "written_to_graph": true,
         "graph_case_id": "HHG-008"
     },
@@ -35,14 +55,14 @@
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized online purchase of $55.68 on card C13171-K2 with anomalous CNP channel usage, and fraud probability is 0.85."
+                "reason": "Customer confirmed unauthorized online purchase of $55.68 on card C13171-K2, supported by an established pattern of prior confirmed fraud on this card under $2,500 exposure."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer reported unauthorized online purchase of $55.68 on card C13171-K2 with anomalous CNP channel usage, and fraud probability is 0.85."
+                "reason": "Customer confirmed unauthorized online purchase of $55.68 on card C13171-K2, supported by an established pattern of prior confirmed fraud on this card under $2,500 exposure."
             }
         ],
         "what_changed": "nothing"
@@ -56,7 +76,7 @@
         "activity_dates": []
     },
     "stop_reason": "Investigation saved to TigerGraph.",
-    "tool_calls": 2,
+    "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 9.671
+    "latency_s": 9.172
 }

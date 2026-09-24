@@ -1,21 +1,19 @@
 {
     "case_id": "HHG-017",
     "case": {
-        "status": "closed_fraud",
-        "verdict": "fraud",
-        "fraud_probability": 0.85,
-        "pattern": "card testing",
+        "status": "closed_legitimate",
+        "verdict": "legitimate",
+        "fraud_probability": 0.15,
+        "pattern": "card-not-present fraud",
         "pattern_description": "",
-        "affected_txn_ids": [
-            "3450629"
-        ],
+        "affected_txn_ids": [],
         "first_suspicious_txn_id": "3450629",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C04570-K1 transaction history shows multiple online transactions with amounts around $100.09 and $99.96 (e.g., txn_vertex 3450436, 3450503, and 3450629) occurring in a tight cluster on 2016-11-11, fitting a card-testing pattern. The flagged transaction 3450629 is for $100.09 at risk score 0.57.",
+                "claim": "Card C04570-K1 exhibits transactions around November 11, 2016 (including txns 3450436 at $100.09, 3450503 at $99.96, and 3450629 at $100.09) with online channel indicators. Precedent CC-1383 shares similar high-risk online scoring and amounts where cardholder travel/legitimate activity cleared the alert.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -24,8 +22,10 @@
                 ]
             }
         ],
-        "similar_prior_cases": [],
-        "summary": "Card C04570-K1 transaction history shows multiple online transactions with amounts around $100.09 and $99.96 (e.g., txn_vertex 3450436, 3450503, and 3450629) occurring in a tight cluster on 2016-11-11, fitting a card-testing pattern. The flagged transaction 3450629 is for $100.09 at risk score 0.57.",
+        "similar_prior_cases": [
+            "CC-1383"
+        ],
+        "summary": "Card C04570-K1 exhibits transactions around November 11, 2016 (including txns 3450436 at $100.09, 3450503 at $99.96, and 3450629 at $100.09) with online channel indicators. Precedent CC-1383 shares similar high-risk online scoring and amounts where cardholder travel/legitimate activity cleared the alert.",
         "written_to_graph": true,
         "graph_case_id": "HHG-017"
     },
@@ -33,16 +33,16 @@
     "next_best_actions": {
         "initial": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Card testing pattern detected with multiple transactions in a tight cluster; probability 0.85 and exposure below $2,500 warrants card block on L1 route."
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
+                "reason": "Fraud probability is low at 0.15, matching precedent where similar amounts cleared after travel/legitimate activity checks."
             }
         ],
         "final": [
             {
-                "action": "BLOCK_CARD",
-                "route": "L1",
-                "reason": "Card testing pattern detected with multiple transactions in a tight cluster; probability 0.85 and exposure below $2,500 warrants card block on L1 route."
+                "action": "ALLOW_TRANSACTION",
+                "route": "auto",
+                "reason": "Fraud probability is low at 0.15, matching precedent where similar amounts cleared after travel/legitimate activity checks."
             }
         ],
         "what_changed": "nothing"
@@ -58,5 +58,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 3,
     "tokens": 0,
-    "latency_s": 12.43
+    "latency_s": 10.237
 }

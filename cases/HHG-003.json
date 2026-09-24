@@ -1,19 +1,21 @@
 {
     "case_id": "HHG-003",
     "case": {
-        "status": "closed_legitimate",
-        "verdict": "legitimate",
-        "fraud_probability": 0.1,
-        "pattern": "undocumented/none",
+        "status": "closed_fraud",
+        "verdict": "fraud",
+        "fraud_probability": 0.85,
+        "pattern": "out-of-region use",
         "pattern_description": "",
-        "affected_txn_ids": [],
+        "affected_txn_ids": [
+            "3530164"
+        ],
         "first_suspicious_txn_id": "3530164",
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
         "evidence": [
             {
-                "claim": "Card C08623-K2 transaction history shows all previous transactions (between Oct and Dec 2016) were conducted in-person with product code W. The customer reported a disputed $49.00 purchase (txn_id 3530164, though a nearby in-person transaction 3534946 for $116.97 occurred on 2016-12-11 in addr1 '204'). Historical pattern matching query was unavailable due to an endpoint error.",
+                "claim": "Customer C08623 disputed a $49.00 purchase (txn 3530164, referenced in trigger context). Review of card C08623-K2 history shows multiple in-person transactions spanning October to December 2016, with varying billing regions (addr1 269, 225, 123, 448, 204). Local case history reveals a substantial pattern of prior confirmed fraud on this specific card and customer (cases CC-2817, CC-2935, CC-3327, CC-3682, CC-4957), predominantly involving out-of-region card-present use while the cardholder retained the card.",
                 "source": "graph",
                 "ref": "TigerGraph MCP evidence tools",
                 "entity_ids": [
@@ -22,34 +24,35 @@
                 ]
             }
         ],
-        "similar_prior_cases": [],
-        "summary": "Card C08623-K2 transaction history shows all previous transactions (between Oct and Dec 2016) were conducted in-person with product code W. The customer reported a disputed $49.00 purchase (txn_id 3530164, though a nearby in-person transaction 3534946 for $116.97 occurred on 2016-12-11 in addr1 '204'). Historical pattern matching query was unavailable due to an endpoint error.",
+        "similar_prior_cases": [
+            "CC-1589",
+            "CC-2817",
+            "CC-2935",
+            "CC-3327",
+            "CC-3682",
+            "CC-4957"
+        ],
+        "summary": "Customer C08623 disputed a $49.00 purchase (txn 3530164, referenced in trigger context). Review of card C08623-K2 history shows multiple in-person transactions spanning October to December 2016, with varying billing regions (addr1 269, 225, 123, 448, 204). Local case history reveals a substantial pattern of prior confirmed fraud on this specific card and customer (cases CC-2817, CC-2935, CC-3327, CC-3682, CC-4957), predominantly involving out-of-region card-present use while the cardholder retained the card.",
         "written_to_graph": true,
         "graph_case_id": "HHG-003"
     },
-    "evidence_requests": [
-        {
-            "type": "customer_validation",
-            "asked_after_step": 1,
-            "assumed_response": "Customer states they did not make these purchases and still has the card."
-        }
-    ],
+    "evidence_requests": [],
     "next_best_actions": {
         "initial": [
             {
-                "action": "VERIFY_WITH_CUSTOMER",
-                "route": "auto",
-                "reason": "Low fraud probability (0.1) with a customer dispute; verify the $49.00 transaction directly with the customer."
+                "action": "BLOCK_CARD",
+                "route": "L1",
+                "reason": "Customer reported unauthorized $49.00 transaction with high fraud probability (0.85) and an extensive history of prior confirmed fraud on this specific card."
             }
         ],
         "final": [
             {
                 "action": "BLOCK_CARD",
                 "route": "L1",
-                "reason": "Customer validation response confirmed they did not make the purchases and still possess the card, indicating card compromise necessitating a card block."
+                "reason": "Customer reported unauthorized $49.00 transaction with high fraud probability (0.85) and an extensive history of prior confirmed fraud on this specific card."
             }
         ],
-        "what_changed": "Customer validation response confirmed unauthorized usage while retaining physical possession of the card, escalating the action from customer verification to blocking the compromised card."
+        "what_changed": "nothing"
     },
     "sar": {
         "file": false,
@@ -62,5 +65,5 @@
     "stop_reason": "Investigation saved to TigerGraph.",
     "tool_calls": 2,
     "tokens": 0,
-    "latency_s": 12.844
+    "latency_s": 7.722
 }

@@ -15,6 +15,7 @@ from agent.tools import (
     tool_find_similar_cases,
     tool_get_card_history,
     tool_get_device_neighbors,
+    tool_get_local_similar_cases,
     tool_write_investigation_result,
 )
 
@@ -26,12 +27,18 @@ llm = ChatGoogleGenerativeAI(
     api_key=os.environ.get("GEMINI_API_KEY"),
 )
 llm_with_tools = llm.bind_tools(
-    [tool_get_card_history, tool_get_device_neighbors, tool_find_similar_cases]
+    [
+        tool_get_card_history,
+        tool_get_device_neighbors,
+        tool_find_similar_cases,
+        tool_get_local_similar_cases,
+    ]
 )
 READ_ONLY_TOOLS = {
     tool_get_card_history.name: tool_get_card_history,
     tool_get_device_neighbors.name: tool_get_device_neighbors,
     tool_find_similar_cases.name: tool_find_similar_cases,
+    tool_get_local_similar_cases.name: tool_get_local_similar_cases,
 }
 
 
@@ -78,6 +85,7 @@ def _run_investigator(state: InvestigationState):
     ]
     response = None
     tool_count = 0
+    local_similar_case_ids = []
     for _ in range(5):
         response = llm_with_tools.invoke(messages)
         messages.append(response)
@@ -92,6 +100,15 @@ def _run_investigator(state: InvestigationState):
                 result = f"Unknown read-only tool requested: {tool_name}"
             else:
                 result = tool.invoke(tool_call.get("args", {}))
+            if tool_name == tool_get_local_similar_cases.name:
+                try:
+                    local_result = json.loads(str(result))
+                    local_similar_case_ids.extend(
+                        str(case_id)
+                        for case_id in local_result.get("similar_prior_cases", [])
+                    )
+                except (TypeError, json.JSONDecodeError):
+                    pass
             messages.append(
                 ToolMessage(
                     content=str(result),
@@ -99,12 +116,12 @@ def _run_investigator(state: InvestigationState):
                 )
             )
 
-    return response, messages, tool_count
+    return response, messages, tool_count, local_similar_case_ids
 
 
 def investigate_node(state: InvestigationState) -> dict:
     """Gather graph evidence and assess the likely fraud pattern."""
-    response, _, tool_count = _run_investigator(state)
+    response, _, tool_count, local_similar_case_ids = _run_investigator(state)
     result = _parse_json_object(_message_text(response))
     evidence_text = str(result.get("evidence", _message_text(response)))
     probability = result.get("fraud_probability", 0.0)
@@ -126,6 +143,13 @@ def investigate_node(state: InvestigationState) -> dict:
         "ref": "TigerGraph MCP evidence tools",
         "entity_ids": [state["card_id"]] + ([flagged_txn_id] if flagged_txn_id else []),
     }]
+    similar_prior_cases = result.get("similar_prior_cases", [])
+    if not isinstance(similar_prior_cases, list):
+        similar_prior_cases = []
+    similar_prior_cases = [str(case_id) for case_id in similar_prior_cases if case_id]
+    similar_prior_cases.extend(
+        case_id for case_id in local_similar_case_ids if case_id not in similar_prior_cases
+    )
     return {
         "status": status,
         "verdict": verdict,
@@ -138,7 +162,7 @@ def investigate_node(state: InvestigationState) -> dict:
         "connected_card_ids": [],
         "connected_device_profiles": [],
         "exposure_usd": 0.0,
-        "similar_prior_cases": [],
+        "similar_prior_cases": similar_prior_cases,
         "summary": evidence_text,
         "written_to_graph": False,
         "graph_case_id": "",
