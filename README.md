@@ -134,49 +134,35 @@ Feature work is developed in isolation, validated against the benchmark, merged
 into `main`, and then followed by case regeneration when output behavior changes.
 
 ```mermaid
-%%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "padding": 18}, "themeVariables": {"fontSize": "13px"}}}%%
-flowchart TB
-    subgraph P1["Phase 1: Feature Branching"]
-        direction LR
-        branch([Create branch])
-        implement[Implement LangGraph / MCP]
-        branch --> implement
-    end
+%% Phase 1: Feature Branching
+%% Phase 2: Local Validation
+%% Phase 3: Batch Regeneration
+%% Phase 4: Integration
+%%{init: {"flowchart": {"nodeSpacing": 18, "rankSpacing": 24, "padding": 8}, "themeVariables": {"fontSize": "13px"}}}%%
+flowchart TD
+    branch([Create branch])
+    implement[Implement LangGraph / MCP]
+    validate["Run syntax checks<br/>Test isolated case"]
+    batch["Clear stale cases<br/>Run 20 benchmarks"]
+    outputs[(Generated cases)]
+    schemaCheck{Validate schema?}
+    review[Review JSON diffs]
+    merge[Merge to main]
 
-    subgraph P2["Phase 2: Local Validation"]
-        direction LR
-        syntax[Run syntax checks]
-        isolated[Test isolated case]
-        syntax --> isolated
-    end
+    branch --> implement --> validate --> batch --> outputs --> schemaCheck
+    schemaCheck -->|pass| review --> merge
+    schemaCheck -. fix .-> implement
 
-    subgraph P3["Phase 3: Batch Regeneration"]
-        direction LR
-        clear[Clear stale cases]
-        batch[Run 20 benchmarks]
-        outputs[(Generated cases)]
-        schemaCheck{Validate schema?}
-        clear --> batch --> outputs --> schemaCheck
-    end
-
-    subgraph P4["Phase 4: Integration"]
-        direction LR
-        review[Review JSON diffs]
-        merge[Merge to main]
-        review --> merge
-    end
-
-    implement --> syntax
-    isolated --> clear
-    schemaCheck -->|pass| review
-    schemaCheck -->|fix| implement
-
-    classDef action fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#172033,font-size:14px
-    classDef data fill:#FFF7ED,stroke:#C2410C,stroke-width:2px,color:#172033,font-size:14px
+    classDef phase1 fill:#E0E7FF,stroke:#4338CA,stroke-width:2px,color:#172033,font-size:14px
+    classDef phase2 fill:#DCFCE7,stroke:#15803D,stroke-width:2px,color:#172033,font-size:14px
+    classDef phase3 fill:#FFEDD5,stroke:#C2410C,stroke-width:2px,color:#172033,font-size:14px
+    classDef phase4 fill:#F3E8FF,stroke:#7E22CE,stroke-width:2px,color:#172033,font-size:14px
     classDef decision fill:#ECFDF5,stroke:#0F766E,stroke-width:2px,color:#172033,font-size:14px
-    class branch,implement,syntax,isolated,clear,batch,review,merge action
-    class outputs data
+    class branch,implement phase1
+    class validate phase2
+    class batch,outputs phase3
     class schemaCheck decision
+    class review,merge phase4
 ```
 
 Recommended workflow:
