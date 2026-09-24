@@ -134,20 +134,21 @@ Feature work is developed in isolation, validated against the benchmark, merged
 into `main`, and then followed by case regeneration when output behavior changes.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"git0": "#4F46E5", "git1": "#0F766E", "git2": "#C2410C", "gitBranchLabel0": "#312E81", "gitBranchLabel1": "#115E59", "gitBranchLabel2": "#9A3412", "commitLabelColor": "#0F172A", "commitLabelBackground": "#F8FAFC", "commitLabelFontSize": "12px", "tagLabelColor": "#0F172A", "tagLabelBackground": "#FFF7ED", "tagLabelBorder": "#C2410C", "tagLabelFontSize": "11px", "fontFamily": "Inter, Arial, sans-serif", "fontSize": "14px"}, "gitGraph": {"showBranches": true, "showCommitLabel": true, "rotateCommitLabel": false}}}%%
 gitGraph
     commit id: "baseline"
-    branch feature/investigation-change
-    checkout feature/investigation-change
-    commit id: "implement feature"
-    commit id: "validate benchmark outputs"
+    branch engine
+    checkout engine
+    commit id: "build"
+    commit id: "validate"
     checkout main
-    merge feature/investigation-change
-    branch feature/documentation
-    checkout feature/documentation
-    commit id: "improve README"
+    merge engine id: "merge engine"
+    branch docs
+    checkout docs
+    commit id: "refine README"
     checkout main
-    merge feature/documentation
-    commit id: "publish final outputs"
+    merge docs id: "merge docs"
+    commit id: "publish"
 ```
 
 Recommended workflow:
