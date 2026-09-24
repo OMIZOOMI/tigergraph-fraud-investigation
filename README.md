@@ -14,6 +14,7 @@ and what should the bank do next?**
 - It distinguishes fraud, legitimate activity, and cases that need human review.
 - It can request simulated customer evidence and show how the recommendation changes.
 - It writes the investigation result back to TigerGraph and saves a readable JSON answer file.
+- Natively traps edge cases by assigning `uncertain` verdicts for conflicting evidence and flagging `undocumented` fraud patterns.
 
 ## Demo Video
 
@@ -25,6 +26,7 @@ Fraud investigation is often reviewed by people who should not have to read
 Python or decode raw machine output. This project keeps the underlying JSON and
 graph evidence for automation and auditability, while also producing
 human-readable context for every case.
+It automatically enforces strict approval routing, successfully escalating high-exposure or highly uncertain cases to L1/L2 analysts based on organizational policy thresholds.
 
 The output explains the finding in plain language, identifies the evidence that
 supports it, shows relevant historical case IDs, and states the recommended
