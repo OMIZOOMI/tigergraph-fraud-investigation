@@ -60,14 +60,21 @@ fallback keeps closed-case memory available when the MCP precedent endpoint is
 unavailable.
 
 ```mermaid
-flowchart LR
-    casePack[(case_pack.csv)] --> runner[run_investigation.py]
-    transactions[(transactions.csv)] --> loader[Data loading scripts]
-    identity[(identity.csv)] --> loader
-    schema[(schema.gsql)] --> loader
-    loader --> tigerGraph[(TigerGraph FraudGraph)]
+flowchart TB
+    subgraph Inputs["1. Inputs and preparation"]
+        casePack[(case_pack.csv)]
+        transactions[(transactions.csv)]
+        identity[(identity.csv)]
+        schema[(schema.gsql)]
+        loader[Data loading scripts]
+        runner[run_investigation.py]
+        transactions --> loader
+        identity --> loader
+        schema --> loader
+        casePack --> runner
+    end
 
-    subgraph Orchestrator[LangGraph orchestrator]
+    subgraph Orchestrator["2. LangGraph orchestrator"]
         investigator[Investigator node]
         decider[Decision node]
         evidenceLoop{Evidence needed?}
@@ -75,27 +82,42 @@ flowchart LR
         writer[Save and close node]
         investigator --> decider
         decider --> evidenceLoop
-        evidenceLoop -->|request evidence| simulate
+        evidenceLoop -->|yes| simulate
         simulate --> decider
-        evidenceLoop -->|complete| writer
+        evidenceLoop -->|no| writer
     end
 
-    runner --> Orchestrator
-
-    subgraph Evidence[Evidence layer]
+    subgraph Evidence["3. Evidence services"]
         mcp[TigerGraph MCP client]
+        tigerGraph[(TigerGraph FraudGraph)]
+        history[(closed_cases_history.csv)]
         fallback[Local pandas fallback]
-        history[(closed_cases_history.csv)] --> fallback
+        mcp --> tigerGraph
+        history --> fallback
+        mcp -. MCP precedent unavailable .-> fallback
+        fallback --> investigator
     end
 
-    investigator --> mcp
-    mcp --> tigerGraph
-    mcp -. precedent endpoint unavailable .-> fallback
-    fallback --> investigator
-    tigerGraph --> mcp
+    subgraph Outputs["4. Stakeholder-ready outputs"]
+        outputs[(cases / case_id.json)]
+        audit[Summary, evidence, actions, and audit metadata]
+        outputs --> audit
+    end
 
+    loader --> tigerGraph
+    runner --> investigator
+    investigator --> mcp
     writer --> tigerGraph
-    writer --> outputs[(cases / case_id.json)]
+    writer --> outputs
+
+    classDef input fill:#e8f1ff,stroke:#3264a8,stroke-width:2px
+    classDef process fill:#eef8ee,stroke:#3f7f4f,stroke-width:2px
+    classDef evidence fill:#fff5df,stroke:#b77b19,stroke-width:2px
+    classDef output fill:#f3eaff,stroke:#7548a8,stroke-width:2px
+    class casePack,transactions,identity,schema input
+    class loader,runner,investigator,decider,evidenceLoop,simulate,writer process
+    class mcp,tigerGraph,history,fallback evidence
+    class outputs,audit output
 ```
 
 ### Component Responsibilities
