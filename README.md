@@ -1,4 +1,15 @@
+<div align="center">
+
 # TigerGraph Fraud Investigation Agent
+
+**Graph-powered, policy-aware fraud investigations with human-readable outputs.**
+
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Orchestration-1F2937)](https://langchain-ai.github.io/langgraph/)
+[![TigerGraph](https://img.shields.io/badge/TigerGraph-Graph%20Evidence-E85D04)](https://www.tigergraph.com/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-LLM-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
+
+</div>
 
 An agentic fraud investigation system built for the TigerGraph Hackathon. It
 combines graph evidence, local case memory, and Google Gemini reasoning to
@@ -34,6 +45,9 @@ action and approval route. A non-technical reviewer can therefore understand
 the decision without opening the source code or reconstructing the reasoning
 from raw database responses.
 
+<details>
+<summary><b>View Accessible Output Details</b></summary>
+
 ### What A Stakeholder Sees
 
 | Output | Plain-language meaning |
@@ -53,6 +67,8 @@ from raw database responses.
 2. Check `evidence` and `similar_prior_cases` to verify the supporting context.
 3. Compare the `initial` and `final` actions to see how new evidence affected the decision.
 4. Use the graph IDs and JSON fields to trace the result back to TigerGraph when deeper review is needed.
+
+</details>
 
 ## System Architecture
 
@@ -122,13 +138,16 @@ flowchart TB
     class outputs,audit output
 ```
 
-### Component Responsibilities
+<details>
+<summary><b>View Component Breakdown</b></summary>
 
 - **Inputs:** case alerts, transaction history, identity data, graph schema, and closed-case history.
 - **LangGraph orchestrator:** controls investigation, decision-making, evidence evolution, and graph write-back.
 - **TigerGraph MCP client:** retrieves transaction and graph relationship evidence through standard MCP tools.
 - **Local fallback layer:** matches the current card or customer against `closed_cases_history.csv` with pandas.
 - **JSON generation:** writes one structured, stakeholder-readable answer for each case.
+
+</details>
 
 ## Development Workflow
 
@@ -248,3 +267,10 @@ Useful checks include:
 python -m compileall -q agent run_investigation.py
 git diff --check
 ```
+
+## Limitations & Future Work
+
+The current demo uses a local CSV fallback for case memory to avoid MCP rate
+limits and keep historical precedent retrieval reliable. In a production
+deployment, this fallback would be shifted to a dedicated TigerGraph
+historical-case vertex and queried through the same governed graph-access layer.
